@@ -1,5 +1,6 @@
 package com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen
 
+import LoginContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,11 +21,11 @@ fun LoginScreen(
     LoginContent(
         login = login,
         senha = senha,
-        onLoginChange = { it },
-        onSenhaChange = { it },
+        onLoginChange = { login = it },
+        onSenhaChange = { senha = it },
         onLoginClick = {
             navController.navigate(
-                Routes.Home.route
+                Routes.Login.route
             )
         },
         modifier = modifier

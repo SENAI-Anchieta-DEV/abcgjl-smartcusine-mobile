@@ -26,17 +26,6 @@ fun AppNavHost(
                 navController = navController
             )
         }
-        composable(Routes.SmartCuisine.route) {
-            CuisineScreen(
-                modifier = Modifier
-                    .fillMaxSize()
-            )
 
-        }
-        composable(Routes.Home.route){
-            HomeScreen(
-                navController = navController
-            )
-        }
     }
 }

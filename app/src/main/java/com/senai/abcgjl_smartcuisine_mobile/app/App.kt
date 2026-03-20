@@ -2,6 +2,7 @@ package com.senai.abcgjl_smartcuisine_mobile.app
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
+import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation.AppNavHost
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.theme.SmartCuisineTheme
 
 @Composable

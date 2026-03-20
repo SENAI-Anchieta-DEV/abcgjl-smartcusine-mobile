@@ -17,7 +17,14 @@ import androidx.compose.ui.unit.dp
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.theme.SmartCuisineTheme
 
 @Composable
-fun LoginView(modifier: Modifier = Modifier){
+fun LoginView(
+    modifier: Modifier = Modifier,
+    login: String,
+    senha: String,
+    onLoginChange: (String) -> Unit,
+    onSenhaChange: (String) -> Unit,
+    onLoginClick: () -> Unit
+){
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -25,49 +32,44 @@ fun LoginView(modifier: Modifier = Modifier){
             space = 16.dp,
             alignment = Alignment.CenterVertically
         )
-
-    ){
+    ) {
 
         TextField(
-            value = "",
-            onValueChange = {},
-            label = {
-                Text("Login: ")
-            },
+            value = login,
+            onValueChange = onLoginChange,
+            label = { Text("Login:") }
+        )
 
-            )
+        TextField(
+            value = senha,
+            onValueChange = onSenhaChange,
+            label = { Text("Senha:") }
+        )
 
         Button(
-            onClick = {},
-            Modifier.fillMaxWidth(.9f), shape = RoundedCornerShape(size = 4.dp)
-        ){
+            onClick = onLoginClick,
+            modifier = Modifier.fillMaxWidth(0.6f),
+            shape = RoundedCornerShape(9.dp)
+        ) {
             Text("Entrar")
         }
     }
 }
 
 
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
-
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewLoginClaro(){
     SmartCuisineTheme(darkTheme = false){
-        LoginView(modifier = Modifier.fillMaxSize().padding(50.dp))
+        LoginView(
+            login = "",
+            senha = "",
+            onLoginChange = {},
+            onSenhaChange = {},
+            onLoginClick = {},
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(50.dp)
+        )
     }
-}
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
-
-@Composable
-fun PreviewLoginEscuro(){
-    SmartCuisineTheme(darkTheme = true) {
-        LoginView(modifier = Modifier.fillMaxSize().padding(50.dp))
-    }
-
 }
