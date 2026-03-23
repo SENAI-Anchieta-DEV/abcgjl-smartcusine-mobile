@@ -91,7 +91,6 @@ fun LoginContent(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // 🧡 Logo
             Image(
                 painter = painterResource(id = R.drawable.logosmartcuisine),
                 contentDescription = "logo smartcuisine",
@@ -100,7 +99,6 @@ fun LoginContent(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // 🧾 Card branco
             Surface(
                 shape = RoundedCornerShape(24.dp),
                 color = Color.White,
@@ -149,7 +147,6 @@ fun LoginContent(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // 🔹 Linha opções
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -160,7 +157,6 @@ fun LoginContent(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // 🔶 Botão entrar
                     Button(
                         onClick = onLoginClick,
                         modifier = Modifier.fillMaxWidth(),
@@ -178,7 +174,6 @@ fun LoginContent(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // 🔘 Botão cadastrar
                     Button(
                         onClick = {},
                         modifier = Modifier.fillMaxWidth(),

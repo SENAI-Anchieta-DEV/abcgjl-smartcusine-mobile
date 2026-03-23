@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.LoginScreen
 
 @Composable
@@ -23,6 +24,12 @@ fun AppNavHost(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp),
+                navController = navController
+            )
+        }
+
+        composable(Routes.Home.route){
+            HomeScreen(
                 navController = navController
             )
         }
