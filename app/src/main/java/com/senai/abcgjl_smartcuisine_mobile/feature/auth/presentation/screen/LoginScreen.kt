@@ -28,6 +28,9 @@ fun LoginScreen(
                 Routes.Home.route
             )
         },
+        onCadastroClick = {
+            navController.
+            navigate(Routes.Cadastro.route) },
         modifier = modifier
     )
 }

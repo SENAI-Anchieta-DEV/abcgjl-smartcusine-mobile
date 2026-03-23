@@ -35,7 +35,8 @@ fun LoginContent(
     senha: String = "",
     onLoginChange: (String) -> Unit = {},
     onSenhaChange: (String) -> Unit = {},
-    onLoginClick: () -> Unit = {}
+    onLoginClick: () -> Unit = {},
+    onCadastroClick: () -> Unit = {}
 ) {
     Box(modifier = modifier.fillMaxSize()) {
         Box(
@@ -117,7 +118,6 @@ fun LoginContent(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // 📩 Email
                     TextField(
                         value = login,
                         onValueChange = onLoginChange,
@@ -175,7 +175,7 @@ fun LoginContent(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Button(
-                        onClick = {},
+                        onClick = onCadastroClick,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(

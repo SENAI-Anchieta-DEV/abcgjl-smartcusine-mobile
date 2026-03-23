@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.CadastroScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.LoginScreen
 
@@ -30,6 +31,12 @@ fun AppNavHost(
 
         composable(Routes.Home.route){
             HomeScreen(
+                navController = navController
+            )
+        }
+
+        composable(Routes.Cadastro.route){
+            CadastroScreen(
                 navController = navController
             )
         }
