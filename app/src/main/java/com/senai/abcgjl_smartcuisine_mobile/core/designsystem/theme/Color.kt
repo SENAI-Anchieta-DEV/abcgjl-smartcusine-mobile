@@ -1,4 +1,4 @@
-package com.senai.abcgjl_smartcuisine_mobile.ui.theme
+package com.senai.abcgjl_smartcuisine_mobile.core.designsystem.theme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF565992)
