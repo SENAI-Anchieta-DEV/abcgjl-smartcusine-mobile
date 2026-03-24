@@ -2,6 +2,7 @@ package com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen
 
 import LoginContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +34,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -60,7 +63,48 @@ fun CadastroContent(
     val perfis = listOf("Administrador", "Cozinheiro", "Gerente")
 
     Box(modifier = modifier.fillMaxSize()) {
-
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.radialGradient(
+                        colors = listOf(
+                            Color(0xFFBFA2FF).copy(alpha = 0.4f),
+                            Color.Transparent
+                        ),
+                        center = Offset(200f, 1400f),
+                        radius = 1000f
+                    )
+                )
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.radialGradient(
+                        colors = listOf(
+                            Color(0xFFAEDCFF).copy(alpha = 0.4f),
+                            Color.Transparent
+                        ),
+                        center = Offset(800f, 200f),
+                        radius = 1000f
+                    )
+                )
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.radialGradient(
+                        colors = listOf(
+                            Color(0xFFEB863A).copy(alpha = 0.35f),
+                            Color.Transparent
+                        ),
+                        center = Offset(1000f, 800f),
+                        radius = 1000f
+                    )
+                )
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -205,11 +249,13 @@ fun CadastroContent(
     }
 }
 
+
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewLoginContentClaro() {
     SmartCuisineTheme(darkTheme = false) {
-        LoginContent()
+        CadastroContent()
     }
 }
 
@@ -217,6 +263,6 @@ fun PreviewLoginContentClaro() {
 @Composable
 fun PreviewLoginContentEscuro() {
     SmartCuisineTheme(darkTheme = true) {
-        LoginContent()
+        CadastroContent()
     }
 }

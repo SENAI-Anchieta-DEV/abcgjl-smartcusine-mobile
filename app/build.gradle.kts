@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.animation.core.lint)
     implementation(libs.androidx.ui)
+    implementation(libs.androidx.compose.ui.geometry)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
