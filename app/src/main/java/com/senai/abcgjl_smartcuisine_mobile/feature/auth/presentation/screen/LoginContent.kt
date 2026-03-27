@@ -6,6 +6,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,14 +40,17 @@ fun LoginContent(
     onLoginClick: () -> Unit = {},
     onCadastroClick: () -> Unit = {}
 ) {
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(
+        modifier = modifier
+    ) {
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            Color(0xFFBFA2FF).copy(alpha = 0.4f),
+                            Color(0xFFBFA2FF).copy(alpha = 0.6f),
                             Color.Transparent
                         ),
                         center = Offset(200f, 1400f),
@@ -59,7 +64,7 @@ fun LoginContent(
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            Color(0xFFAEDCFF).copy(alpha = 0.4f),
+                            Color(0xFFAEDCFF).copy(alpha = 0.6f),
                             Color.Transparent
                         ),
                         center = Offset(800f, 200f),
@@ -73,7 +78,7 @@ fun LoginContent(
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            Color(0xFFEB863A).copy(alpha = 0.35f),
+                            Color(0xFFEB863A).copy(alpha = 0.6f),
                             Color.Transparent
                         ),
                         center = Offset(1000f, 800f),
@@ -85,7 +90,6 @@ fun LoginContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .safeDrawingPadding()
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -123,7 +127,14 @@ fun LoginContent(
                         onValueChange = onLoginChange,
                         placeholder = { Text("Seu email") },
                         shape = RoundedCornerShape(50),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Email,
+                                contentDescription = "Email",
+                                tint = Color.Gray
+                            )
+                        }
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -137,8 +148,21 @@ fun LoginContent(
                         shape = RoundedCornerShape(50),
                         modifier = Modifier.fillMaxWidth(),
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Lock,
+                                contentDescription = "Senha",
+                                tint = Color.Gray
+                            )
+                        },
+
                         trailingIcon = {
-                            val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                            val image = if (passwordVisible)
+                                Icons.Filled.Visibility
+                            else
+                                Icons.Filled.VisibilityOff
+
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
                                 Icon(imageVector = image, contentDescription = null)
                             }

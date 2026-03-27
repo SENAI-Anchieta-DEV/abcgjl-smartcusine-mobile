@@ -12,9 +12,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -63,13 +68,14 @@ fun CadastroContent(
     val perfis = listOf("Administrador", "Cozinheiro", "Gerente")
 
     Box(modifier = modifier.fillMaxSize()) {
+        // Gradientes
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            Color(0xFFBFA2FF).copy(alpha = 0.4f),
+                            Color(0xFFBFA2FF).copy(alpha = 0.6f),
                             Color.Transparent
                         ),
                         center = Offset(200f, 1400f),
@@ -83,7 +89,7 @@ fun CadastroContent(
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            Color(0xFFAEDCFF).copy(alpha = 0.4f),
+                            Color(0xFFAEDCFF).copy(alpha = 0.6f),
                             Color.Transparent
                         ),
                         center = Offset(800f, 200f),
@@ -97,7 +103,7 @@ fun CadastroContent(
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            Color(0xFFEB863A).copy(alpha = 0.35f),
+                            Color(0xFFEB863A).copy(alpha = 0.6f),
                             Color.Transparent
                         ),
                         center = Offset(1000f, 800f),
@@ -105,11 +111,13 @@ fun CadastroContent(
                     )
                 )
         )
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .safeDrawingPadding()
-                .padding(24.dp),
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -140,26 +148,6 @@ fun CadastroContent(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    TextField(
-                        value = nome,
-                        onValueChange = onNomeChange,
-                        placeholder = { Text("Nome completo") },
-                        shape = RoundedCornerShape(50),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    TextField(
-                        value = email,
-                        onValueChange = onEmailChange,
-                        placeholder = { Text("Email") },
-                        shape = RoundedCornerShape(50),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
                     var expanded by remember { mutableStateOf(false) }
 
                     Box {
@@ -169,12 +157,22 @@ fun CadastroContent(
                             readOnly = true,
                             placeholder = { Text("Selecione o perfil") },
                             shape = RoundedCornerShape(50),
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp), // altura mais fina
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Filled.Person,
+                                    contentDescription = "Perfil",
+                                    tint = Color.Gray
+                                )
+                            },
                             trailingIcon = {
                                 IconButton(onClick = { expanded = true }) {
                                     Icon(Icons.Filled.ArrowDropDown, contentDescription = null)
                                 }
-                            }
+                            },
+                            singleLine = true
                         )
 
                         DropdownMenu(
@@ -195,6 +193,46 @@ fun CadastroContent(
 
                     Spacer(modifier = Modifier.height(12.dp))
 
+                    TextField(
+                        value = nome,
+                        onValueChange = onNomeChange,
+                        placeholder = { Text("Nome completo") },
+                        shape = RoundedCornerShape(50),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Person,
+                                contentDescription = "Nome",
+                                tint = Color.Gray
+                            )
+                        },
+                        singleLine = true
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    TextField(
+                        value = email,
+                        onValueChange = onEmailChange,
+                        placeholder = { Text("Email") },
+                        shape = RoundedCornerShape(50),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Email,
+                                contentDescription = "Email",
+                                tint = Color.Gray
+                            )
+                        },
+                        singleLine = true
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
                     var senhaVisivel by remember { mutableStateOf(false) }
 
                     TextField(
@@ -202,14 +240,24 @@ fun CadastroContent(
                         onValueChange = onSenhaChange,
                         placeholder = { Text("Senha") },
                         shape = RoundedCornerShape(50),
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
                         visualTransformation = if (senhaVisivel) VisualTransformation.None else PasswordVisualTransformation(),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Lock,
+                                contentDescription = "Senha",
+                                tint = Color.Gray
+                            )
+                        },
                         trailingIcon = {
                             val icon = if (senhaVisivel) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                             IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
                                 Icon(icon, contentDescription = null)
                             }
-                        }
+                        },
+                        singleLine = true
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -221,14 +269,24 @@ fun CadastroContent(
                         onValueChange = onConfirmarSenhaChange,
                         placeholder = { Text("Confirmar senha") },
                         shape = RoundedCornerShape(50),
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
                         visualTransformation = if (confirmarVisivel) VisualTransformation.None else PasswordVisualTransformation(),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Lock,
+                                contentDescription = "Confirmar senha",
+                                tint = Color.Gray
+                            )
+                        },
                         trailingIcon = {
                             val icon = if (confirmarVisivel) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                             IconButton(onClick = { confirmarVisivel = !confirmarVisivel }) {
                                 Icon(icon, contentDescription = null)
                             }
-                        }
+                        },
+                        singleLine = true
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
