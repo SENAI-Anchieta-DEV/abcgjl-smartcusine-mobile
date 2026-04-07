@@ -1,6 +1,5 @@
-package com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen
+package com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.Content
 
-import LoginContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -47,6 +46,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.senai.abcgjl_smartcuisine_mobile.R
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.theme.SmartCuisineTheme
 
 @Composable
@@ -125,7 +125,7 @@ fun CadastroContent(
 
             Image(
                 painter = painterResource(
-                    id = com.senai.abcgjl_smartcuisine_mobile.R.drawable.logosmartcuisine
+                    id = R.drawable.logosmartcuisine
                 ),
                 contentDescription = "logo",
                 modifier = Modifier.size(120.dp)

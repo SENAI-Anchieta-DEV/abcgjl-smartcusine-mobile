@@ -8,6 +8,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation.Routes
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.Content.CadastroContent
+
 @Composable
 fun CadastroScreen(
     modifier: Modifier = Modifier,
