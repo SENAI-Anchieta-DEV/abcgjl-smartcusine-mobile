@@ -41,6 +41,11 @@ fun LoginScreen(
             navController.navigate(Routes.Cadastro.route)
         },
 
-        modifier = modifier
+        modifier = modifier,
+
+        onEsqueciSenhaClick = {
+            navController.navigate(Routes.EsqueciSenha.route)
+        }
+
     )
 }

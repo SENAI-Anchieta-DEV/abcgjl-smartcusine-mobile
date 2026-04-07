@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.CadastroScreen
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.EsqueciSenhaScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.LoginScreen
 
@@ -40,6 +41,13 @@ fun AppNavHost(
                 navController = navController
             )
         }
+
+        composable(Routes.EsqueciSenha.route) {
+            EsqueciSenhaScreen(
+                navController = navController
+            )
+        }
+
 
     }
 }
