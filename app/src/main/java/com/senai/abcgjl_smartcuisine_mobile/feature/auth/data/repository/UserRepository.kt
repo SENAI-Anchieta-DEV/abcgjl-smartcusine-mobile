@@ -12,11 +12,20 @@ class UserRepository {
             if (response.isSuccessful) {
                 Result.success(true)
             } else {
-                Result.failure(Exception("Erro: ${response.code()}"))
+                Result.failure(
+                    Exception(
+                        when (response.code()) {
+                            400 -> "Dados inválidos"
+                            401 -> "Não autorizado"
+                            500 -> "Erro no servidor"
+                            else -> "Erro desconhecido"
+                        }
+                    )
+                )
             }
 
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failure(Exception("Erro de conexão"))
         }
     }
 }
