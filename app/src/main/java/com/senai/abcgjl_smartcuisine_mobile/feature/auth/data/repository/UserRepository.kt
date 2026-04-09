@@ -9,10 +9,11 @@ import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.response.LoginResp
 class UserRepository(
     private val userPreferences: UserPreferences
 ) {
+    private val api = RetrofitClient.getApi(userPreferences)
 
     suspend fun cadastrarUsuario(user: User): Result<Boolean> {
         return try {
-            val response = RetrofitClient.api.cadastrarUsuario(user)
+            val response = api.cadastrarUsuario(user)
 
             if (response.isSuccessful) {
                 Result.success(true)
@@ -28,7 +29,6 @@ class UserRepository(
                     )
                 )
             }
-
         } catch (e: Exception) {
             Result.failure(Exception("Erro de conexão"))
         }
@@ -36,15 +36,12 @@ class UserRepository(
 
     suspend fun login(email: String, senha: String): Result<LoginResponse> {
         return try {
-            val response = RetrofitClient.api.login(
-                LoginRequest(email, senha)
-            )
+
+            val response = api.login(LoginRequest(email, senha))
 
             if (response.isSuccessful && response.body() != null) {
                 val loginResponse = response.body()!!
-
                 userPreferences.saveToken(loginResponse.token)
-
                 Result.success(loginResponse)
             } else {
                 Result.failure(
@@ -58,7 +55,6 @@ class UserRepository(
                     )
                 )
             }
-
         } catch (e: Exception) {
             Result.failure(Exception("Erro de conexão"))
         }

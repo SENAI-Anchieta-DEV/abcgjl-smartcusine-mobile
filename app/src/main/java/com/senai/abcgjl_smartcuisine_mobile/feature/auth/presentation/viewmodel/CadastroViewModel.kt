@@ -8,10 +8,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class CadastroViewModel : ViewModel() {
-
-    private val repository = UserRepository()
-
+class CadastroViewModel(
+    private val repository: UserRepository
+) : ViewModel() {
     private val _state = MutableStateFlow<CadastroState>(CadastroState.Idle)
     val state: StateFlow<CadastroState> = _state
 

@@ -18,6 +18,7 @@ import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.CadastroViewModel
 
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.Content.CadastroContent
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.CadastroViewModelFactory
 
 @Composable
 fun CadastroScreen(
@@ -30,12 +31,15 @@ fun CadastroScreen(
     var confirmarSenha by remember { mutableStateOf("") }
     var perfil by remember { mutableStateOf("Administrador") }
 
-    // 🔥 NOVO: ViewModel + State
-    val viewModel: CadastroViewModel = viewModel()
-    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
+    val viewModel: CadastroViewModel = viewModel(
+        factory = CadastroViewModelFactory(context)
+    )
 
-    // 🔥 NOVO: Feedback de sucesso/erro
+
+    val state by viewModel.state.collectAsState()
+
+
     LaunchedEffect(state) {
         when (state) {
             is CadastroState.Sucesso -> {
@@ -67,7 +71,6 @@ fun CadastroScreen(
         onConfirmarSenhaChange = { confirmarSenha = it },
         onPerfilChange = { perfil = it },
 
-        // 🔥 ALTERADO: agora chama o ViewModel
         onCadastrarClick = {
 
             if (senha != confirmarSenha) {

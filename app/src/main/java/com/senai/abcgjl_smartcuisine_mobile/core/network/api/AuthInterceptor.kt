@@ -1,8 +1,6 @@
 package com.senai.abcgjl_smartcuisine_mobile.core.network.api
 
 import com.senai.abcgjl_smartcuisine_mobile.core.network.datastore.UserPreferences
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.flow.first
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -11,9 +9,8 @@ class AuthInterceptor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val token = runBlocking {
-            userPreferences.tokenFlow.first()
-        }
+
+        val token = userPreferences.getToken()
 
         val request = chain.request().newBuilder()
 

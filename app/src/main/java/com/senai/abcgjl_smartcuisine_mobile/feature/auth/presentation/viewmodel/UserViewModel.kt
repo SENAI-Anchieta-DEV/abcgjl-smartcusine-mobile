@@ -5,10 +5,9 @@ import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.model.User
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class UserViewModel : ViewModel() {
-
-    private val repository = UserRepository()
-
+class UserViewModel(
+    private val repository: UserRepository
+) : ViewModel() {
     private val _resultado = MutableLiveData<String>()
     val resultado: LiveData<String> = _resultado
 
