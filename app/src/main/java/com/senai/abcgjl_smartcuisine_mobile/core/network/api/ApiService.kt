@@ -5,6 +5,7 @@ import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.response.LoginRequ
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.response.LoginResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -12,6 +13,9 @@ interface ApiService {
     @POST("usuarios")
     suspend fun cadastrarUsuario(@Body user: User): Response<Void>
 
-        @POST("login")
-        suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+    @POST("login")
+    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+
+    @GET("usuarios")
+    suspend fun listarUsuarios(): Response<List<User>>
 }

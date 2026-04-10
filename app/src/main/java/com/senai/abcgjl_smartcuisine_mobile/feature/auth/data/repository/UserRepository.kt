@@ -59,4 +59,19 @@ class UserRepository(
             Result.failure(Exception("Erro de conexão"))
         }
     }
+
+    suspend fun listarUsuarios(): Result<List<User>> {
+        return try {
+            val response = api.listarUsuarios()
+
+            if (response.isSuccessful) {
+                Result.success(response.body() ?: emptyList())
+            } else {
+                Result.failure(Exception("Erro: ${response.code()}"))
+            }
+
+        } catch (e: Exception) {
+            Result.failure(Exception("Erro de conexão"))
+        }
+    }
 }
