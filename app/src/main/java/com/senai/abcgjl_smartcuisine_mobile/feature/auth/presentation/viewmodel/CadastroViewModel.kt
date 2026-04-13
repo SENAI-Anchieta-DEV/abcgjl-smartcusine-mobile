@@ -16,6 +16,8 @@ class CadastroViewModel(
 
     fun cadastrar(user: User) {
         viewModelScope.launch {
+            _state.value = CadastroState.Loading
+
             try {
                 val result = repository.cadastrarUsuario(user)
 

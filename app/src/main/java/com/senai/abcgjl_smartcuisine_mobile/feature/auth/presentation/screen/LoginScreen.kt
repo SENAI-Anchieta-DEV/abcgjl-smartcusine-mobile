@@ -56,6 +56,7 @@ fun LoginScreen(
         senha = senha,
         onLoginChange = { login = it },
         onSenhaChange = { senha = it },
+        isLoading = state is LoginState.Loading,
 
         onLoginClick = {
             if (login.isBlank() || senha.isBlank()) {
@@ -63,7 +64,7 @@ fun LoginScreen(
                 return@LoginContent
             }
 
-            // Chama a função do ViewModel (sem o callback!)
+
             viewModel.login(login, senha)
         },
 

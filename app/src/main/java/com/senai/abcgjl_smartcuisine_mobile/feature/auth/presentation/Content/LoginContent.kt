@@ -37,7 +37,10 @@ fun LoginContent(
     onSenhaChange: (String) -> Unit = {},
     onLoginClick: () -> Unit = {},
     onCadastroClick: () -> Unit = {},
-    onEsqueciSenhaClick: () -> Unit = {}
+    onEsqueciSenhaClick: () -> Unit = {},
+    isLoading: Boolean = false,
+
+
 ) {
     Box(
     ) {
@@ -147,13 +150,20 @@ fun LoginContent(
 
                     Button(
                         onClick = onLoginClick,
+                        enabled = !isLoading,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFFE6863B)
                         )
-                    ) {
+                    ) {if (isLoading) {
+                        CircularProgressIndicator(
+                            color = Color.White,
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp
+                        )} else{
                         Text("Entrar", color = Color.White)
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))

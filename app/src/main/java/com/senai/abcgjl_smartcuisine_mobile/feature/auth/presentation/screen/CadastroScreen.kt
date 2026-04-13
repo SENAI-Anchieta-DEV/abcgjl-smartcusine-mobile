@@ -71,6 +71,8 @@ fun CadastroScreen(
         onConfirmarSenhaChange = { confirmarSenha = it },
         onPerfilChange = { perfil = it },
 
+        isLoading = state is CadastroState.Loading,
+
         onCadastrarClick = {
 
             if (senha != confirmarSenha) {

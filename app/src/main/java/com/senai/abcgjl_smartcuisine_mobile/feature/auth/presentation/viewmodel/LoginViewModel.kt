@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 sealed class LoginState {
     object Idle : LoginState()
+    object Loading : LoginState()
     object Sucesso : LoginState()
     data class Erro(val mensagem: String) : LoginState()
 }
@@ -24,6 +25,7 @@ class LoginViewModel(
 
     fun login(email: String, senha: String) {
         viewModelScope.launch {
+            _state.value = LoginState.Loading
             try {
                 val result = repository.login(email, senha)
 

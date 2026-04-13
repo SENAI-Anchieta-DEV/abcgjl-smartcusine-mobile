@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -62,13 +63,13 @@ fun CadastroContent(
     onSenhaChange: (String) -> Unit = {},
     onConfirmarSenhaChange: (String) -> Unit = {},
     onPerfilChange: (String) -> Unit = {},
+    isLoading: Boolean = false,
     onCadastrarClick: () -> Unit = {}
 ) {
 
     val perfis = listOf("Administrador", "Cozinheiro", "Gerente")
 
     Box(modifier = modifier.fillMaxSize()) {
-        // Gradientes
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -293,13 +294,21 @@ fun CadastroContent(
 
                     Button(
                         onClick = onCadastrarClick,
+                        enabled = !isLoading,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFFE6863B)
                         )
                     ) {
-                        Text("Cadastrar", color = Color.White)
+                        if (isLoading) {
+                            CircularProgressIndicator(
+                                color = Color.White,
+                                modifier = Modifier.size(24.dp),
+                                strokeWidth = 2.dp
+                            )}
+                            else
+                            {Text("Cadastrar", color = Color.White)}
                     }
                 }
             }
