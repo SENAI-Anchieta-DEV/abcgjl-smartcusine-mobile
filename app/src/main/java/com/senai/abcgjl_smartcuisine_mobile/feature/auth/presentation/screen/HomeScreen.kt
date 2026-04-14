@@ -17,18 +17,5 @@ import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation.Routes
 fun HomeScreen(
     navController: NavController
 ){
-    Button(
-        onClick = {navController.navigate(Routes.Home.route)},
-        modifier = Modifier.fillMaxWidth(0.6f),
-        shape = RoundedCornerShape(size = 9.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.background
-        ),
-        border = BorderStroke(
-            2.dp,
-            MaterialTheme.colorScheme.primary
-        )
-    ) {
-        Text("Home")
-    }
+
 }

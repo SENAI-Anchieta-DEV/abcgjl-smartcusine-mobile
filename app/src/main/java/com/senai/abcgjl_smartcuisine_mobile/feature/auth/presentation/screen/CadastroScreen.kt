@@ -89,7 +89,8 @@ fun CadastroScreen(
                 User(
                     nome = nome,
                     email = email,
-                    senha = senha
+                    senha = senha,
+                    perfil = perfil
                 )
             )
         },

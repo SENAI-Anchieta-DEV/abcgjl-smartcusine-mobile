@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://10.0.2.2:8080/"
+    private const val BASE_URL = "https://abcgjl-smartcusine-backend-api.onrender.com/"
 
     fun getApi(userPreferences: UserPreferences): ApiService {
 
