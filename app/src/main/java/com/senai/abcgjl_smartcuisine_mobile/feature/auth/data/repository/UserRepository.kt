@@ -42,11 +42,12 @@ class UserRepository(
             if (response.isSuccessful) {
                 Result.success(Unit)
             } else {
-                Result.failure(Exception("Erro ao cadastrar. Verifique os dados ou tente outro email."))
+                val erro = response.errorBody()?.string() ?: "Erro desconhecido"
+                Result.failure(Exception(erro))
             }
         } catch (e: Exception) {
-            Log.e("UserRepository", "Erro no cadastro", e)
-            Result.failure(Exception("Erro de conexão: Verifique a sua internet"))
+            Log.e("REPO", "Erro de rede", e)
+            Result.failure(e)
         }
     }
 
@@ -55,8 +56,6 @@ class UserRepository(
             val response = api.listarUsuarios()
 
             if (response.isSuccessful) {
-                // Se der sucesso, pegamos a lista do corpo da resposta.
-                // Se vier nula, devolvemos uma lista vazia (emptyList)
                 val lista = response.body() ?: emptyList()
                 Result.success(lista)
             } else {

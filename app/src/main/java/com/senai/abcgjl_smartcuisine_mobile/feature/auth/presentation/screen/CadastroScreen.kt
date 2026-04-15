@@ -44,7 +44,7 @@ fun CadastroScreen(
         when (state) {
             is CadastroState.Sucesso -> {
                 Toast.makeText(context, "Cadastro realizado!", Toast.LENGTH_SHORT).show()
-                navController.navigate(Routes.Home.route)
+                navController.navigate(Routes.Login.route)
             }
 
             is CadastroState.Erro -> {
