@@ -5,8 +5,20 @@ plugins {
 
 android {
     namespace = "com.senai.abcgjl_smartcuisine_mobile"
+
     compileSdk {
         version = release(36)
+    }
+
+    packaging {
+        resources {
+            excludes += listOf(
+                "META-INF/INDEX.LIST",
+                "META-INF/DEPENDENCIES",
+                "META-INF/io.netty.versions.properties",
+                "META-INF/*.kotlin_module"
+            )
+        }
     }
 
     defaultConfig {
@@ -28,10 +40,12 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     buildFeatures {
         compose = true
     }
@@ -54,6 +68,7 @@ dependencies {
     implementation(libs.ui)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.runtime)
+    implementation(libs.firebase.appdistribution.gradle)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -72,9 +87,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     // Log de requisição (debug)
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
 }

@@ -39,6 +39,8 @@ fun LoginContent(
     onCadastroClick: () -> Unit = {},
     onEsqueciSenhaClick: () -> Unit = {},
     isLoading: Boolean = false,
+    lembrar: Boolean = false,
+    onLembrarChange: (Boolean) -> Unit = {},
 
 
 ) {
@@ -135,7 +137,15 @@ fun LoginContent(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text("Me lembre", fontSize = 12.sp)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = lembrar,
+                                onCheckedChange = onLembrarChange
+                            )
+                            Text("Lembrar senha", fontSize = 12.sp)
+                        }
                         Text(
                             text = "Esqueceu a senha?",
                             fontSize = 12.sp,

@@ -1,6 +1,7 @@
 package com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen
 
 import LoginContent
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation.Routes
+import com.senai.abcgjl_smartcuisine_mobile.core.network.datastore.UserPreferences
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.CadastroViewModelFactory
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.LoginState
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.LoginViewModel
@@ -25,8 +27,10 @@ fun LoginScreen(
 ) {
     var login by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
+    var lembrar by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
+    val userPrefs = UserPreferences(context)
 
     val viewModel: LoginViewModel = viewModel(
         factory = CadastroViewModelFactory(context)
@@ -51,11 +55,23 @@ fun LoginScreen(
         }
     }
 
+    LaunchedEffect(Unit) {
+        if (userPrefs.isLembrar()) {
+            login = userPrefs.getEmail() ?: ""
+            senha = userPrefs.getSenha() ?: ""
+            lembrar = true
+
+            viewModel.login(login, senha)
+        }
+    }
+
     LoginContent(
         login = login,
         senha = senha,
         onLoginChange = { login = it },
         onSenhaChange = { senha = it },
+        lembrar = lembrar,
+        onLembrarChange = { lembrar = it },
         isLoading = state is LoginState.Loading,
 
         onLoginClick = {
@@ -64,6 +80,11 @@ fun LoginScreen(
                 return@LoginContent
             }
 
+            if (lembrar) {
+                userPrefs.salvarLogin(login, senha)
+            } else {
+                userPrefs.limparLogin()
+            }
 
             viewModel.login(login, senha)
         },

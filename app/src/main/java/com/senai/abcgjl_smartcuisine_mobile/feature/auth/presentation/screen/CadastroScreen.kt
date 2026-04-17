@@ -29,7 +29,7 @@ fun CadastroScreen(
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
     var confirmarSenha by remember { mutableStateOf("") }
-    var perfil by remember { mutableStateOf("Administrador") }
+    var tipo by remember { mutableStateOf("Administrador") }
 
     val context = LocalContext.current
     val viewModel: CadastroViewModel = viewModel(
@@ -44,7 +44,7 @@ fun CadastroScreen(
         when (state) {
             is CadastroState.Sucesso -> {
                 Toast.makeText(context, "Cadastro realizado!", Toast.LENGTH_SHORT).show()
-                navController.navigate(Routes.Home.route)
+                navController.navigate(Routes.Login.route)
             }
 
             is CadastroState.Erro -> {
@@ -64,12 +64,12 @@ fun CadastroScreen(
         email = email,
         senha = senha,
         confirmarSenha = confirmarSenha,
-        perfil = perfil,
+        perfil = tipo,
         onNomeChange = { nome = it },
         onEmailChange = { email = it },
         onSenhaChange = { senha = it },
         onConfirmarSenhaChange = { confirmarSenha = it },
-        onPerfilChange = { perfil = it },
+        onPerfilChange = { tipo = it },
 
         isLoading = state is CadastroState.Loading,
 
@@ -85,11 +85,19 @@ fun CadastroScreen(
                 return@CadastroContent
             }
 
+            val tipoParaEnviar = when (tipo) {
+                "Administrador" -> "ADMIN"      // Mapeia para ADMIN
+                "Gerente"       -> "GERENTE"    // Mapeia para GERENTE
+                "Cozinheiro"    -> "COZINHEIRO" // Mapeia para COZINHEIRO
+                else -> tipo.uppercase()
+            }
+
             viewModel.cadastrar(
                 User(
                     nome = nome,
                     email = email,
-                    senha = senha
+                    senha = senha,
+                    tipo = tipoParaEnviar
                 )
             )
         },
