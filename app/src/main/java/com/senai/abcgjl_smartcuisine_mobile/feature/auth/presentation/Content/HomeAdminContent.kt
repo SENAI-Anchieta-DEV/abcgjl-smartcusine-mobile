@@ -146,7 +146,7 @@ fun AdminBottomSummary(stats: DashboardStats) {
         Row(modifier = Modifier.padding(20.dp).fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             StatItem("Total de Itens", stats.totalItens.toString())
             StatItem("Em preparo", stats.emPreparo.toString())
-            StatItem("Prontos", stats.prontos.toString())
+            StatItem("Prontos.", stats.prontos.toString())
             StatItem("Validade crítica", stats.validadeCritica.toString())
             StatItem("Vencidos", stats.vencidos.toString())
         }
