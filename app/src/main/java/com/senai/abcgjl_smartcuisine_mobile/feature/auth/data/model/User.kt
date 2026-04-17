@@ -12,6 +12,6 @@ data class User(
     @SerializedName("senha")
     val senha: String,
 
-    @SerializedName("perfil") // Verifique se no seu Backend o nome é exatamente "perfil" ou "role"
-    val perfil: String
+    @SerializedName("perfil")
+    val tipo: String
 )

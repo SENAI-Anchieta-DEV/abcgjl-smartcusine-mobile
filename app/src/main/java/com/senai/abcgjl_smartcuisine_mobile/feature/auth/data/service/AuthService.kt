@@ -14,7 +14,7 @@ interface AuthService {
         @Body request: LoginRequest
     ): Response<LoginResponse>
 
-    @POST("auth/cadastrar") // <-- Ajuste aqui se a URL da sua API for diferente
+    @POST("auth/cadastrar")
     suspend fun cadastrar(
         @Body request: CadastroRequest
     ): Response<LoginResponse>

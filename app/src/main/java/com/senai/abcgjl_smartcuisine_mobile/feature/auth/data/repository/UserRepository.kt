@@ -37,17 +37,24 @@ class UserRepository(
 
     suspend fun cadastrarUsuario(user: User): Result<Unit> {
         return try {
-            val response = api.cadastrarUsuario(user)
-
+            val response = api.cadastrar(user)
             if (response.isSuccessful) {
                 Result.success(Unit)
             } else {
-                val erro = response.errorBody()?.string() ?: "Erro desconhecido"
-                Result.failure(Exception(erro))
+                val codigoErro = response.code()
+                val erroBruto = response.errorBody()?.string() ?: ""
+                val mensagemParaUsuario = when (codigoErro) {
+                    500 -> "Erro interno no servidor (O banco de dados pode estar fora do ar)."
+                    404 -> "Rota de cadastro não encontrada no servidor."
+                    400 -> "Dados inválidos. Verifique os campos e tente novamente."
+                    else -> "Erro desconhecido ($codigoErro): $erroBruto"
+                }
+
+                Result.failure(Exception(mensagemParaUsuario))
             }
         } catch (e: Exception) {
             Log.e("REPO", "Erro de rede", e)
-            Result.failure(e)
+            Result.failure(Exception("Falha na conexão com o servidor."))
         }
     }
 
