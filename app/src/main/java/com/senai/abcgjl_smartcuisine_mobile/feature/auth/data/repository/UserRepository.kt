@@ -44,7 +44,7 @@ class UserRepository(
                 val codigoErro = response.code()
                 val erroBruto = response.errorBody()?.string() ?: ""
                 val mensagemParaUsuario = when (codigoErro) {
-                    500 -> "Erro interno no servidor (O banco de dados pode estar fora do ar)."
+                    500 -> "Erro interno no servidor: $erroBruto "
                     404 -> "Rota de cadastro não encontrada no servidor."
                     400 -> "Dados inválidos. Verifique os campos e tente novamente."
                     else -> "Erro desconhecido ($codigoErro): $erroBruto"

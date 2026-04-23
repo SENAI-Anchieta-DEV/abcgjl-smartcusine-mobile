@@ -22,7 +22,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.HomeAdmin.route
+        startDestination = Routes.Login.route
     ) {
         composable(Routes.Login.route) {
             LoginScreen(

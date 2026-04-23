@@ -97,7 +97,7 @@ fun CadastroScreen(
                     nome = nome,
                     email = email,
                     senha = senha,
-                    tipo = tipoParaEnviar
+                    tipoUsuario = tipoParaEnviar
                 )
             )
         },
