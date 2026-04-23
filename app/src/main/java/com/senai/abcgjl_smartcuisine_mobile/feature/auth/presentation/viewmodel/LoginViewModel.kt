@@ -27,7 +27,7 @@ class LoginViewModel(
         viewModelScope.launch {
             _state.value = LoginState.Loading
             try {
-                val result = repository.login(email, senha)
+                val result = repository.fazerLogin(email, senha)
 
                 if (result.isSuccess) {
                     _state.value = LoginState.Sucesso
