@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun InfoAluno(
+fun InfoUsuario(
     modifier: Modifier = Modifier,
     labelText: String,
     valueText: String,

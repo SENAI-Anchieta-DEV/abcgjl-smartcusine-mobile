@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://seu-endpoint.com/")
+        .baseUrl("https://abcgjl-smartcusine-backend-api.onrender.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

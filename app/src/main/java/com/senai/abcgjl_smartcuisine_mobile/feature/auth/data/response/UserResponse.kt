@@ -1,7 +1,8 @@
 package com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.response
 
-data class LoginRequest(
+data class UserResponse(
+    val id: Long,
+    val nome: String,
     val email: String,
-    val senha: String,
-    val tipoUsuario: String = "GERENTE"
+    val tipo: String
 )
