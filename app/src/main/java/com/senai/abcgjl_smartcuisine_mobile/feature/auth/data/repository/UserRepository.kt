@@ -20,11 +20,11 @@ class UserRepository(
             if (response.isSuccessful) {
                 val loginResponse = response.body()
 
-                if (loginResponse != null && loginResponse.success) {
+                if (loginResponse != null && loginResponse.token.isNotBlank()) {
                     userPreferences.saveToken(loginResponse.token)
                     Result.success(Unit)
                 } else {
-                    Result.failure(Exception(loginResponse?.message ?: "Erro ao fazer login"))
+                    Result.failure(Exception("Erro ao fazer login"))
                 }
             } else {
                 Result.failure(Exception("Email ou senha incorretos"))

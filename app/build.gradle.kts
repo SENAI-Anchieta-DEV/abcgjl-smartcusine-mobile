@@ -16,7 +16,8 @@ android {
                 "META-INF/INDEX.LIST",
                 "META-INF/DEPENDENCIES",
                 "META-INF/io.netty.versions.properties",
-                "META-INF/*.kotlin_module"
+                "META-INF/*.kotlin_module",
+                "mozilla/public-suffix-list.txt"
             )
         }
     }

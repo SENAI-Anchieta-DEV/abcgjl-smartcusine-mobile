@@ -12,6 +12,6 @@ data class User(
     @SerializedName("senha")
     val senha: String,
 
-    @SerializedName("perfil")
+    @SerializedName("tipo")
     val tipoUsuario: String
 )
