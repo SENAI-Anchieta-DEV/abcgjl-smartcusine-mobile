@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 sealed class LoginState {
     object Idle : LoginState()
     object Loading : LoginState()
-    object Sucesso : LoginState()
+    data class Sucesso(val tipoUsuario: String) : LoginState()
+
     data class Erro(val mensagem: String) : LoginState()
 }
 
@@ -26,19 +27,15 @@ class LoginViewModel(
     fun login(email: String, senha: String) {
         viewModelScope.launch {
             _state.value = LoginState.Loading
-            try {
-                val result = repository.fazerLogin(email, senha)
 
-                if (result.isSuccess) {
-                    _state.value = LoginState.Sucesso
-                } else {
-                    _state.value = LoginState.Erro(
-                        result.exceptionOrNull()?.message ?: "Erro ao fazer login"
-                    )
-                }
+            // O repositório agora retorna Result<User>
+            val result = repository.fazerLogin(email, senha)
 
-            } catch (e: Exception) {
-                _state.value = LoginState.Erro(e.message ?: "Erro de conexão")
+            result.onSuccess { user ->
+                // O estado agora recebe o tipo vindo do objeto user
+                _state.value = LoginState.Sucesso(user.tipoUsuario)
+            }.onFailure { e ->
+                _state.value = LoginState.Erro(e.message ?: "Erro no login")
             }
         }
     }

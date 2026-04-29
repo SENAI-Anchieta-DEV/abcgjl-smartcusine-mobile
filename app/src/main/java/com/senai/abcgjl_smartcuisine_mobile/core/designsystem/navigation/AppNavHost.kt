@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.CadastroScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.EsqueciSenhaScreen
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeAdminScreen
+/*import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeAdminScreen*/
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeCozinheiroScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeGerenteScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeScreen
@@ -33,11 +33,11 @@ fun AppNavHost(
             )
         }
 
-        composable(Routes.Home.route){
+        /*composable(Routes.Home.route){
             HomeScreen(
                 navController = navController
             )
-        }
+        } */
 
         composable(Routes.Cadastro.route){
             CadastroScreen(
@@ -51,11 +51,11 @@ fun AppNavHost(
             )
         }
 
-        composable(Routes.HomeAdmin.route) {
+        /*composable(Routes.HomeAdmin.route) {
             HomeAdminScreen(
                 navController = navController
             )
-        }
+        }*/
 
         composable(Routes.HomeGerente.route) {
             HomeGerenteScreen(

@@ -12,26 +12,25 @@ class UserRepository(
     private val userPreferences: UserPreferences
 ) {
 
-    suspend fun fazerLogin(email: String, senha: String): Result<Unit> {
+    suspend fun fazerLogin(email: String, senha: String): Result<User> {
         return try {
             val request = LoginRequest(email, senha)
             val response = api.login(request)
 
-            if (response.isSuccessful) {
-                val loginResponse = response.body()
+            if (response.isSuccessful && response.body() != null) {
+                val loginResponse = response.body()!!
 
-                if (loginResponse != null && loginResponse.token.isNotBlank()) {
-                    userPreferences.saveToken(loginResponse.token)
-                    Result.success(Unit)
-                } else {
-                    Result.failure(Exception("Erro ao fazer login"))
-                }
+                // Salvamos o token
+                userPreferences.saveToken(loginResponse.token)
+
+                // Retornamos o objeto User que veio na resposta
+                Result.success(loginResponse.user)
             } else {
                 Result.failure(Exception("Email ou senha incorretos"))
             }
         } catch (e: Exception) {
             Log.e("UserRepository", "Erro no login", e)
-            Result.failure(Exception("Erro de conexão: Verifique a sua internet"))
+            Result.failure(Exception("Erro de conexão: Verifique sua internet"))
         }
     }
 
@@ -73,4 +72,5 @@ class UserRepository(
             Result.failure(Exception("Erro de conexão: Verifique a sua internet"))
         }
     }
+
 }

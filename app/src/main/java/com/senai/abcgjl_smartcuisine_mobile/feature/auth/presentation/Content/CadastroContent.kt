@@ -298,7 +298,8 @@ fun CadastroContent(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFE6863B)
+                            containerColor = Color(0xFFE6863B),
+                            disabledContainerColor = Color(0xFFE67E22)
                         )
                     ) {
                         if (isLoading) {

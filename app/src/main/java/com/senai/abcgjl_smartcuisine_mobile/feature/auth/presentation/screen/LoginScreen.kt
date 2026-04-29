@@ -39,17 +39,24 @@ fun LoginScreen(
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(state) {
-        when (state) {
+        when (val currentState = state) {
             is LoginState.Sucesso -> {
-                Toast.makeText(context, "Login realizado!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Bem-vindo!", Toast.LENGTH_SHORT).show()
 
-                navController.navigate(Routes.Home.route) {
+                // Aqui usamos o tipo que veio do estado de sucesso
+                val rota = when (currentState.tipoUsuario) {
+                    "ADMIN" -> Routes.HomeAdmin.route
+                    "GERENTE" -> Routes.HomeGerente.route
+                    "COZINHEIRO" -> Routes.HomeCozinheiro.route
+                    else -> Routes.HomeAdmin.route // Rota padrão home
+                }
+
+                navController.navigate(rota) {
                     popUpTo(Routes.Login.route) { inclusive = true }
                 }
             }
             is LoginState.Erro -> {
-                val erroMsg = (state as LoginState.Erro).mensagem
-                Toast.makeText(context, erroMsg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, currentState.mensagem, Toast.LENGTH_SHORT).show()
             }
             else -> {}
         }
