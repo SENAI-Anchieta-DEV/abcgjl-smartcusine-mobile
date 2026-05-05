@@ -8,7 +8,4 @@ sealed class Routes(val route: String) {
 
     object HomeAdmin : Routes("home_admin")
 
-    object HomeGerente : Routes("home_gerente")
-
-    object HomeCozinheiro : Routes("home_cozinheiro")
 }

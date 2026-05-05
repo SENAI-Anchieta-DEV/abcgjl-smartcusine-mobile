@@ -1,7 +1,6 @@
 package com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen
 
 import LoginContent
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,22 +42,27 @@ fun LoginScreen(
             is LoginState.Sucesso -> {
                 Toast.makeText(context, "Bem-vindo!", Toast.LENGTH_SHORT).show()
 
-                // Aqui usamos o tipo que veio do estado de sucesso
-                val rota = when (currentState.tipoUsuario) {
-                    "ADMIN" -> Routes.HomeAdmin.route
-                    "GERENTE" -> Routes.HomeGerente.route
-                    "COZINHEIRO" -> Routes.HomeCozinheiro.route
-                    else -> Routes.HomeAdmin.route // Rota padrão home
+                println("LOGIN_DEBUG: Tipo recebido do servidor: ${currentState.tipoUsuario}")
+
+                val tipo = currentState.tipoUsuario.trim().uppercase()
+
+                val rota = when (tipo) {
+                    "ADMIN","ADMINISTRADOR","ADM" -> Routes.HomeAdmin.route
+                    "COZINHEIRO" -> "home_cozinheiro" // Exemplo
+                    else -> Routes.HomeAdmin.route
                 }
 
                 navController.navigate(rota) {
                     popUpTo(Routes.Login.route) { inclusive = true }
+                    launchSingleTop = true
                 }
+
             }
             is LoginState.Erro -> {
                 Toast.makeText(context, currentState.mensagem, Toast.LENGTH_SHORT).show()
             }
             else -> {}
+
         }
     }
 
