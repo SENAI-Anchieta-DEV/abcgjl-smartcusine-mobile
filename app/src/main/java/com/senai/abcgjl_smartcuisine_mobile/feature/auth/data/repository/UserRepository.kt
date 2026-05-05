@@ -2,7 +2,6 @@ package com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository
 
 
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.model.User
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.response.LoginRequest
 import android.util.Log
 import com.senai.abcgjl_smartcuisine_mobile.core.network.datastore.UserPreferences
 

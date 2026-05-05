@@ -1,6 +1,11 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+
 }
 
 android {
@@ -71,6 +76,8 @@ dependencies {
     implementation(libs.androidx.runtime)
     implementation(libs.firebase.appdistribution.gradle)
     implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.transport.runtime)
+    implementation(libs.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -89,5 +96,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     // Log de requisição (debug)
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+
 
 }

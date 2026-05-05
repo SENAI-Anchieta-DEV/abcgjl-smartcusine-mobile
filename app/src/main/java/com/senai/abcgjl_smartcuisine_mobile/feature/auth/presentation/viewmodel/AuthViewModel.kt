@@ -5,11 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository.AuthRepository
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.response.CadastroRequest
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository.AuthRepositoryImpl
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.response.CadastroRequest
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
+class AuthViewModel(private val repository: AuthRepositoryImpl) : ViewModel() {
 
     // State para avisar a tela sobre o status do cadastro
     var cadastroStatus by mutableStateOf<String?>(null)
