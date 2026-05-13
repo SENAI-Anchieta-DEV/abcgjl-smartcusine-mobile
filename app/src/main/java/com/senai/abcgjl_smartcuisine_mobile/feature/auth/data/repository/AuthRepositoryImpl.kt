@@ -4,6 +4,7 @@ package com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository
 
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.AuthApiService
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.request.LoginRequestDto
+import jakarta.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authApiService: AuthApiService
