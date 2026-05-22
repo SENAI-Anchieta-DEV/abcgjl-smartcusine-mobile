@@ -8,6 +8,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.component.AppPrimaryButton
+import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.component.AppTextField
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.state.LoginUiState
 
 @Composable
 fun LoginForm(
@@ -30,12 +33,12 @@ fun LoginForm(
         )
 
         AppTextField(
-            value = uiState.password,
+            value = uiState.senha,
             label = "Senha",
             onValueChange = onPasswordChange,
             isPassword = true,
-            isError = uiState.passwordError != null,
-            supportingText = uiState.passwordError
+            isError = uiState.senhaError != null,
+            supportingText = uiState.senhaError
         )
 
         uiState.errorMessage?.let {

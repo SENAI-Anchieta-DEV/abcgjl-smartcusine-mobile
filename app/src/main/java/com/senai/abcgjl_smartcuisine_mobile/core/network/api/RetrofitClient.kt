@@ -1,6 +1,6 @@
 package com.senai.abcgjl_smartcuisine_mobile.core.network.api
 
-import com.senai.abcgjl_smartcuisine_mobile.core.network.datastore.UserPreferences
+import com.senai.abcgjl_smartcuisine_mobile.core.datastore.UserPreferences
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit

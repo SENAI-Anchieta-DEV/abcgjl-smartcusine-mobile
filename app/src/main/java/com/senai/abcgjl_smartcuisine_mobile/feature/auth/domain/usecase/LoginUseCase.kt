@@ -1,6 +1,8 @@
 package com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.usecase
 
+import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionManager
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.repository.AuthRepository
+import jakarta.inject.Inject
 
 class LoginUseCase @Inject constructor(
     private val authRepository: AuthRepository,

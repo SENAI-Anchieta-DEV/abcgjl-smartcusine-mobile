@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation.Routes
-import com.senai.abcgjl_smartcuisine_mobile.core.network.datastore.UserPreferences
+import com.senai.abcgjl_smartcuisine_mobile.core.datastore.UserPreferences
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.CadastroViewModelFactory
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.LoginState
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.LoginViewModel

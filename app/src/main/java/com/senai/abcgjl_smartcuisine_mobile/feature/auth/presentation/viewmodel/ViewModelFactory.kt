@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.senai.abcgjl_smartcuisine_mobile.core.network.api.RetrofitClient
-import com.senai.abcgjl_smartcuisine_mobile.core.network.datastore.UserPreferences
+import com.senai.abcgjl_smartcuisine_mobile.core.datastore.UserPreferences
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository.UserRepository
 
 class CadastroViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

@@ -3,8 +3,8 @@ package com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.response
 import com.google.gson.annotations.SerializedName
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.model.User
 
-data class LoginResponseDTO(
+data class LoginResponseDto(
     @SerializedName("accessToken", alternate = ["token"])
-    val token: String,
+    val accessToken: String,
     val user: User
 )

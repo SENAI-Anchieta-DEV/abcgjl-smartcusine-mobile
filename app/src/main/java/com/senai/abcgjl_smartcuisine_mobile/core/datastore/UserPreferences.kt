@@ -1,4 +1,4 @@
-package com.senai.abcgjl_smartcuisine_mobile.core.network.datastore
+package com.senai.abcgjl_smartcuisine_mobile.core.datastore
 
 import android.content.Context
 import android.content.SharedPreferences

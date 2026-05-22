@@ -3,24 +3,26 @@ package com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository
 
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.model.User
 import android.util.Log
-import com.senai.abcgjl_smartcuisine_mobile.core.network.datastore.UserPreferences
+import com.senai.abcgjl_smartcuisine_mobile.core.network.api.ApiService
+import com.senai.abcgjl_smartcuisine_mobile.core.datastore.UserPreferences
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.request.LoginRequestDto
 
 class UserRepository(
-    private val api: com.senai.abcgjl_smartcuisine_mobile.core.network.api.ApiService
+    private val api: ApiService
     ,
     private val userPreferences: UserPreferences
 ) {
 
     suspend fun fazerLogin(email: String, senha: String): Result<User> {
         return try {
-            val request = LoginRequest(email, senha)
+            val request = LoginRequestDto(email, senha)
             val response = api.login(request)
 
             if (response.isSuccessful && response.body() != null) {
                 val loginResponse = response.body()!!
 
                 // Salvamos o token
-                userPreferences.saveToken(loginResponse.token)
+                userPreferences.saveToken(loginResponse.accessToken)
 
                 // Retornamos o objeto User que veio na resposta
                 Result.success(loginResponse.user)
