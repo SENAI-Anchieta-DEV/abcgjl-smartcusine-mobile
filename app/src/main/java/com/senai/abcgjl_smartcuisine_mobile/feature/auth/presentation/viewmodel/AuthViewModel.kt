@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository.AuthRepositoryImpl
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.response.CadastroRequest
 import kotlinx.coroutines.launch
 

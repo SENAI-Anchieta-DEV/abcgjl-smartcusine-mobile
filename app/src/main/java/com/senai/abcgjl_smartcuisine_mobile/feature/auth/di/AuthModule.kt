@@ -4,7 +4,6 @@ import com.google.android.datatransport.runtime.dagger.Binds
 import com.google.android.datatransport.runtime.dagger.Module
 import com.google.android.datatransport.runtime.dagger.Provides
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.AuthApiService
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository.AuthRepositoryImpl
 
 import retrofit2.Retrofit
 
