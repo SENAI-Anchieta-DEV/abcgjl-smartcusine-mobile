@@ -1,51 +1,101 @@
 package com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.CadastroScreen
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.EsqueciSenhaScreen
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeAdminScreen
+import androidx.navigation.navArgument
+import com.senai.abcgjl_smartcuisine_mobile.app.shell.NavigationIconType
+import com.senai.abcgjl_smartcuisine_mobile.app.shell.UnauthenticatedShell
+import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.component.LoadingState
+import com.senai.abcgjl_smartcuisine_mobile.core.model.SessionViewModel
+import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
+import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionState
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.LoginScreen
+import com.senai.abcgjl_smartcuisine_mobile.feature.signup.presentation.screen.SignupScreen
 
 @Composable
 fun AppNavHost(
-    navController: NavHostController
+    navController: NavHostController,
+    sessionViewModel: SessionViewModel = hiltViewModel()
 ) {
+    val sessionState = sessionViewModel.sessionState.collectAsStateWithLifecycle().value
+    val sessionUser = sessionViewModel.sessionUser.collectAsStateWithLifecycle().value
+
+    fun authenticatedRouteForCurrentUser(): String {
+        return when (sessionUser.role) {
+            UserRole.ADMINISTRADOR -> AppDestinations.AdmHome.route
+            UserRole.GERENTE -> AppDestinations.GerenteHome.route
+            UserRole.COZINHEIRO -> AppDestinations.CozinheiroHome.route
+            null -> AppDestinations.Login.route
+        }
+    }
+
+    LaunchedEffect(sessionState, sessionUser.role) {
+        when (sessionState) {
+            SessionState.Authenticated -> {
+                val destination = authenticatedRouteForCurrentUser()
+                if (destination != AppDestinations.Login.route) {
+                    navController.navigate(destination) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
+            }
+            SessionState.Unauthenticated -> {
+                navController.navigate(AppDestinations.Login.route) {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+            }
+            SessionState.Loading -> Unit
+        }
+    }
+
     NavHost(
         navController = navController,
-        startDestination = Routes.Login.route
+        startDestination = AppDestinations.Login.route
     ) {
-        composable(Routes.Login.route) {
-            LoginScreen(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                navController = navController
-            )
+        composable(AppDestinations.Login.route) {
+            if (sessionState == SessionState.Loading) {
+                LoadingState(message = "Restaurando a sessão...")
+            } else {
+                UnauthenticatedShell(title = "Entrar") {
+                    LoginScreen(
+                        innerPadding = it,
+                        onLoginSuccess = {
+                            navController.navigate(authenticatedRouteForCurrentUser()) {
+                                popUpTo(AppDestinations.Login.route) { inclusive = true }
+                            }
+                        },
+                        onNavigateToSignup = { navController.navigate(AppDestinations.Signup.route) }
+                    )
+                }
+            }
         }
 
-        composable(Routes.Cadastro.route){
-            CadastroScreen(
-                navController = navController
-            )
+        composable(AppDestinations.Signup.route) {
+            UnauthenticatedShell(
+                title = "Cadastro",
+                navigationIconType = NavigationIconType.BACK,
+                onNavigationClick = { navController.popBackStack() }
+            ) { innerPadding ->
+                SignupScreen(innerPadding = innerPadding, onBackToLogin = { navController.popBackStack() })
+            }
         }
 
-        composable(Routes.EsqueciSenha.route) {
-            EsqueciSenhaScreen(
-                navController = navController
-            )
+        composable(AppDestinations.Home.route) {
+            LoadingState(message = "Redirecionando para o perfil do usuário...")
         }
 
-        composable(Routes.HomeAdmin.route) {
-            HomeAdminScreen(
-                navController = navController
-            )
-        }
     }
 }

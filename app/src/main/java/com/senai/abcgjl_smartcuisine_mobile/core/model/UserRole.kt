@@ -1,8 +1,9 @@
 package com.senai.abcgjl_smartcuisine_mobile.core.model
 
 enum class UserRole {
-    ALUNO,
-    PROFESSOR;
+    ADMINISTRADOR,
+    GERENTE,
+    COZINHEIRO;
 
     companion object {
         fun fromApiValue(value: String?): UserRole? {

@@ -1,113 +1,47 @@
 package com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen
 
-import LoginContent
-import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation.Routes
-import com.senai.abcgjl_smartcuisine_mobile.core.datastore.UserPreferences
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.CadastroViewModelFactory
-import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.LoginState
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.layout.AppScreen
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.component.LoginForm
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.component.LoginHeader
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
-    navController: NavController
+    onLoginSuccess: () -> Unit,
+    onNavigateToSignup: () -> Unit,
+    innerPadding: PaddingValues = PaddingValues(),
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
-    var login by remember { mutableStateOf("") }
-    var senha by remember { mutableStateOf("") }
-    var lembrar by remember { mutableStateOf(false) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val context = LocalContext.current
-    val userPrefs = UserPreferences(context)
-
-    val viewModel: LoginViewModel = viewModel(
-        factory = CadastroViewModelFactory(context)
-    )
-
-    val state by viewModel.state.collectAsState()
-
-    LaunchedEffect(state) {
-        when (val currentState = state) {
-            is LoginState.Sucesso -> {
-                Toast.makeText(context, "Bem-vindo!", Toast.LENGTH_SHORT).show()
-
-                println("LOGIN_DEBUG: Tipo recebido do servidor: ${currentState.tipoUsuario}")
-
-                val tipo = currentState.tipoUsuario.trim().uppercase()
-
-                val rota = when (tipo) {
-                    "ADMIN","ADMINISTRADOR","ADM" -> Routes.HomeAdmin.route
-                    "COZINHEIRO" -> "home_cozinheiro" // Exemplo
-                    else -> Routes.HomeAdmin.route
-                }
-
-                navController.navigate(rota) {
-                    popUpTo(Routes.Login.route) { inclusive = true }
-                    launchSingleTop = true
-                }
-
-            }
-            is LoginState.Erro -> {
-                Toast.makeText(context, currentState.mensagem, Toast.LENGTH_SHORT).show()
-            }
-            else -> {}
-
+    LaunchedEffect(uiState.isAuthenticated) {
+        if (uiState.isAuthenticated) {
+            onLoginSuccess()
+            viewModel.consumeAuthentication()
         }
     }
 
-    LaunchedEffect(Unit) {
-        if (userPrefs.isLembrar()) {
-            login = userPrefs.getEmail() ?: ""
-            senha = userPrefs.getSenha() ?: ""
-            lembrar = true
-
-            viewModel.login(login, senha)
+    AppScreen(innerPadding = innerPadding) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            LoginHeader()
+            LoginForm(
+                uiState = uiState,
+                onEmailChange = viewModel::onEmailChange,
+                onPasswordChange = viewModel::onPasswordChange,
+                onLoginClick = viewModel::login,
+                onSignupClick = onNavigateToSignup
+            )
         }
     }
-
-    LoginContent(
-        login = login,
-        senha = senha,
-        onLoginChange = { login = it },
-        onSenhaChange = { senha = it },
-        lembrar = lembrar,
-        onLembrarChange = { lembrar = it },
-        isLoading = state is LoginState.Loading,
-
-        onLoginClick = {
-            if (login.isBlank() || senha.isBlank()) {
-                Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
-                return@LoginContent
-            }
-
-            if (lembrar) {
-                userPrefs.salvarLogin(login, senha)
-            } else {
-                userPrefs.limparLogin()
-            }
-
-            viewModel.login(login, senha)
-        },
-
-        onCadastroClick = {
-            navController.navigate(Routes.Cadastro.route)
-        },
-
-        modifier = modifier,
-
-        onEsqueciSenhaClick = {
-            navController.navigate(Routes.EsqueciSenha.route)
-        }
-    )
 }

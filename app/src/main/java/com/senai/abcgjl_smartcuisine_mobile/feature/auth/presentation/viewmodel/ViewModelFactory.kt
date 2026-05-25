@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.senai.abcgjl_smartcuisine_mobile.core.network.api.RetrofitClient
 import com.senai.abcgjl_smartcuisine_mobile.core.datastore.UserPreferences
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository.UserRepository
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.repository.AuthRepository
 
 class CadastroViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -32,8 +33,6 @@ class CadastroViewModelFactory(private val context: Context) : ViewModelProvider
             val api = RetrofitClient.getApi(userPreferences)
             val repository = UserRepository(api = api, userPreferences = userPreferences)
 
-            @Suppress("UNCHECKED_CAST")
-            return LoginViewModel(repository) as T
         }
 
         throw IllegalArgumentException("ViewModel desconhecido")

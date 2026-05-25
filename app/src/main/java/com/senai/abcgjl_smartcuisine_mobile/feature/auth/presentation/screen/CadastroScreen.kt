@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation.Routes
+import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation.AppDestinations
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.model.User
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.CadastroState
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.CadastroViewModel
@@ -44,7 +44,7 @@ fun CadastroScreen(
         when (state) {
             is CadastroState.Sucesso -> {
                 Toast.makeText(context, "Cadastro realizado!", Toast.LENGTH_SHORT).show()
-                navController.navigate(Routes.Login.route)
+                navController.navigate(AppDestinations.Login.route)
             }
 
             is CadastroState.Erro -> {
