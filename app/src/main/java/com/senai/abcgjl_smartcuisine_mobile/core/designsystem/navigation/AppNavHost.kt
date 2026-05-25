@@ -6,10 +6,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.senai.abcgjl_smartcuisine_mobile.app.shell.NavigationIconType
 import com.senai.abcgjl_smartcuisine_mobile.app.shell.UnauthenticatedShell
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.component.LoadingState
@@ -36,6 +34,8 @@ fun AppNavHost(
         }
     }
 
+
+
     LaunchedEffect(sessionState, sessionUser.role) {
         when (sessionState) {
             SessionState.Authenticated -> {
@@ -49,6 +49,7 @@ fun AppNavHost(
                     }
                 }
             }
+
             SessionState.Unauthenticated -> {
                 navController.navigate(AppDestinations.Login.route) {
                     popUpTo(navController.graph.findStartDestination().id) {
@@ -96,6 +97,7 @@ fun AppNavHost(
         composable(AppDestinations.Home.route) {
             LoadingState(message = "Redirecionando para o perfil do usuário...")
         }
+
 
     }
 }

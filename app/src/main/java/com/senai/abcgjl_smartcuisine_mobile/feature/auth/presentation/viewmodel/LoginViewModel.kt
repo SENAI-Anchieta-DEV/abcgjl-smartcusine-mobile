@@ -32,6 +32,7 @@ class LoginViewModel @Inject constructor(
     fun onPasswordChange(value: String) {
         _uiState.update {
             it.copy(
+                senha = value,
                 senhaError = null,
                 errorMessage = null
             )
