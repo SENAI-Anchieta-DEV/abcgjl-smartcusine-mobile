@@ -1,16 +1,16 @@
-package com.senai.abcgjl_smartcuisine_mobile.core.model
+package com.senai.abcgjl_smartcuisine_mobile.core.session
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.senai.abcgjl_smartcuisine_mobile.core.datastore.ThemePreferenceStore
-import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionManager
-import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionState
+import com.senai.abcgjl_smartcuisine_mobile.core.model.SessionUser
+import com.senai.abcgjl_smartcuisine_mobile.core.model.ThemeMode
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class SessionViewModel @Inject constructor(
@@ -24,7 +24,7 @@ class SessionViewModel @Inject constructor(
     val themeMode: StateFlow<ThemeMode> = themePreferenceStore.themeMode
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.Companion.WhileSubscribed(5_000),
             initialValue = ThemeMode.SYSTEM
         )
 

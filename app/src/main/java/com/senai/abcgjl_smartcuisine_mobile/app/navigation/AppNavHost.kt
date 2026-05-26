@@ -1,4 +1,4 @@
-package com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation
+package com.senai.abcgjl_smartcuisine_mobile.app.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -11,7 +11,7 @@ import androidx.navigation.compose.composable
 import com.senai.abcgjl_smartcuisine_mobile.app.shell.NavigationIconType
 import com.senai.abcgjl_smartcuisine_mobile.app.shell.UnauthenticatedShell
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.component.LoadingState
-import com.senai.abcgjl_smartcuisine_mobile.core.model.SessionViewModel
+import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionViewModel
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
 import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionState
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.LoginScreen

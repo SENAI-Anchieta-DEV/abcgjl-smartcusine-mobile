@@ -43,7 +43,7 @@ class SessionPreferenceStore(
                 null
             } else {
                 SessionUser(
-                    name = preferences[Keys.userName].orEmpty(),
+                    nome = preferences[Keys.userName].orEmpty(),
                     email = preferences[Keys.userEmail].orEmpty(),
                     role = UserRole.fromApiValue(preferences[Keys.userRole]),
                     authToken = token,
@@ -55,7 +55,7 @@ class SessionPreferenceStore(
     suspend fun saveSessionUser(user: SessionUser) {
         context.sessionDataStore.edit { preferences ->
             preferences[Keys.authToken] = user.authToken
-            preferences[Keys.userName] = user.name
+            preferences[Keys.userName] = user.nome
             preferences[Keys.userEmail] = user.email
             user.role?.let { preferences[Keys.userRole] = it.name }
             user.approvalStatus?.let { preferences[Keys.approvalStatus] = it.name }

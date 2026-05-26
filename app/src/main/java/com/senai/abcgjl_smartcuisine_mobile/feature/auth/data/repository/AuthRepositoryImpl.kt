@@ -1,22 +1,23 @@
 package com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository
 
+import com.senai.abcgjl_smartcuisine_mobile.core.common.network.ApiExceptionParser
+import com.senai.abcgjl_smartcuisine_mobile.core.model.ApprovalStatus
 import com.senai.abcgjl_smartcuisine_mobile.core.model.SessionUser
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
-import com.senai.abcgjl_smartcuisine_mobile.core.network.api.ApiExceptionParser
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.AuthApiService
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.request.LoginRequestDto
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.model.AuthSession
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.repository.AuthRepository
-import jakarta.inject.Inject
+import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authApiService: AuthApiService
 ) : AuthRepository {
 
-    override suspend fun login(email: String, password: String): AuthSession {
+    override suspend fun login(email: String, senha: String): AuthSession {
         return try {
             val loginResponse = authApiService.login(
-                LoginRequestDto(email = email, senha = password)
+                LoginRequestDto(email = email, senha = senha)
             )
 
             val token = loginResponse.accessToken.trim()
@@ -28,6 +29,13 @@ class AuthRepositoryImpl @Inject constructor(
                 authorization = "Bearer $token"
             )
 
+            val approvalStatus = ApprovalStatus.fromApiValue(meResponse.status)
+            if (approvalStatus == ApprovalStatus.PENDENTE) {
+                throw IllegalStateException(
+                    "Cadastro pendente de aprovação. Aguarde a liberação na aplicação web para entrar no app."
+                )
+            }
+
             val userRole = UserRole.fromApiValue(meResponse.role)
                 ?: throw IllegalStateException(
                     "O usuário autenticado não possui tipo definido na API. Ajuste o cadastro antes de entrar no app."
@@ -35,10 +43,11 @@ class AuthRepositoryImpl @Inject constructor(
 
             AuthSession(
                 user = SessionUser(
-                    name = meResponse.name.orEmpty(),
+                    nome = meResponse.nome.orEmpty(),
                     email = meResponse.email.orEmpty(),
                     role = userRole,
                     authToken = token,
+                    approvalStatus = approvalStatus
                 )
             )
         } catch (throwable: Throwable) {
@@ -51,3 +60,4 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 }
+

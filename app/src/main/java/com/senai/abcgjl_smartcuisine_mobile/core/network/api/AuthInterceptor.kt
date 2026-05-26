@@ -1,23 +1,29 @@
 package com.senai.abcgjl_smartcuisine_mobile.core.network.api
 
-import com.senai.abcgjl_smartcuisine_mobile.core.datastore.UserPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class AuthInterceptor(
-    private val userPreferences: UserPreferences
+class AuthInterceptor @Inject constructor(
+    private val authTokenProvider: AuthTokenProvider
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        val originalRequest = chain.request()
 
-        val token = userPreferences.getToken()
-
-        val request = chain.request().newBuilder()
-
-        if (token.isNotEmpty()) {
-            request.addHeader("Authorization", "Bearer $token")
+        if (originalRequest.header("Authorization") != null) {
+            return chain.proceed(originalRequest)
         }
 
-        return chain.proceed(request.build())
+        val token = authTokenProvider.getToken()
+        val authenticatedRequest = if (token.isNullOrBlank()) {
+            originalRequest
+        } else {
+            originalRequest.newBuilder()
+                .addHeader("Authorization", "Bearer $token")
+                .build()
+        }
+
+        return chain.proceed(authenticatedRequest)
     }
 }

@@ -1,4 +1,4 @@
-package com.senai.abcgjl_smartcuisine_mobile.core.designsystem.navigation
+package com.senai.abcgjl_smartcuisine_mobile.app.navigation
 
 sealed class AppDestinations(val route: String) {
     data object Login : AppDestinations("login")
