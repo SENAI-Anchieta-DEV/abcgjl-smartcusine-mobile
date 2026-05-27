@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.senai.abcgjl_smartcuisine_mobile.core.network.api.RetrofitClient
 import com.senai.abcgjl_smartcuisine_mobile.core.datastore.UserPreferences
+import com.senai.abcgjl_smartcuisine_mobile.core.network.api.AuthTokenProvider
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.repository.UserRepository
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.repository.AuthRepository
 
@@ -12,7 +13,8 @@ class CadastroViewModelFactory(private val context: Context) : ViewModelProvider
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CadastroViewModel::class.java)) {
             val userPreferences = UserPreferences(context)
-            val api = RetrofitClient.getApi(userPreferences)
+            val authTokenProvider = AuthTokenProvider()
+            val api = RetrofitClient.getApi(authTokenProvider)
             val repository = UserRepository(api = api, userPreferences = userPreferences)
 
             @Suppress("UNCHECKED_CAST")
@@ -21,7 +23,8 @@ class CadastroViewModelFactory(private val context: Context) : ViewModelProvider
 
         if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
             val userPreferences = UserPreferences(context)
-            val api = RetrofitClient.getApi(userPreferences)
+            val authTokenProvider = AuthTokenProvider()
+            val api = RetrofitClient.getApi(authTokenProvider)
             val repository = UserRepository(api = api, userPreferences = userPreferences)
 
             @Suppress("UNCHECKED_CAST")
@@ -30,7 +33,8 @@ class CadastroViewModelFactory(private val context: Context) : ViewModelProvider
 
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             val userPreferences = UserPreferences(context)
-            val api = RetrofitClient.getApi(userPreferences)
+            val authTokenProvider = AuthTokenProvider()
+            val api = RetrofitClient.getApi(authTokenProvider)
             val repository = UserRepository(api = api, userPreferences = userPreferences)
 
         }
