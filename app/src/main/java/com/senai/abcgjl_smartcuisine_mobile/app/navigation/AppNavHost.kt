@@ -1,5 +1,6 @@
 package com.senai.abcgjl_smartcuisine_mobile.app.navigation
 
+import SignupScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,7 +18,6 @@ import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionViewModel
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
 import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionState
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.LoginScreen
-import com.senai.abcgjl_smartcuisine_mobile.feature.signup.presentation.screen.SignupScreen
 
 @Composable
 fun AppNavHost(
@@ -84,11 +84,15 @@ fun AppNavHost(
 
         composable(AppDestinations.Signup.route) {
             UnauthenticatedShell(
-                title = "Cadastro",
+                title = "",
+                showHeader = false,
                 navigationIconType = NavigationIconType.BACK,
                 onNavigationClick = { navController.popBackStack() }
             ) { innerPadding ->
-                SignupScreen(innerPadding = innerPadding, onBackToLogin = { navController.popBackStack() })
+                SignupScreen(
+                    innerPadding = innerPadding,
+                    onBackToLogin = { navController.popBackStack() }
+                )
             }
         }
 

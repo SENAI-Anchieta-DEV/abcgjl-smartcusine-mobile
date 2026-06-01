@@ -34,22 +34,15 @@ class SignupViewModel @Inject constructor(
         _uiState.update { it.copy(senha = value, senhaError = null, errorMessage = null) }
     }
 
-    //fun onRoleSelected(role: UserRole) {
-        //_uiState.update {
-            //it.copy(
-                //selectedRole = role,
-                //roleError = null,
-                //errorMessage = null,
-                //selectedCourse = if (role == UserRole.PROFESSOR) null else it.selectedCourse,
-                //courseError = null
-            //)
-        //}
-
-        //if (role == UserRole.ALUNO && _uiState.value.courses.isEmpty()) {
-            //loadCourses()
-        //}
-    //}
-
+    fun onRoleSelected(role: UserRole) {
+        _uiState.update {
+            it.copy(
+                selectedRole = role,
+                roleError = null,
+                errorMessage = null
+            )
+        }
+    }
 
 
     fun submit() {

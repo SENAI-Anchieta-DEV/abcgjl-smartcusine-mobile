@@ -2,6 +2,7 @@ package com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.senai.abcgjl_smartcuisine_mobile.core.network.api.AuthTokenProvider // 🚀 Import do seu Provider
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.usecase.LoginUseCase
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.state.LoginUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val authTokenProvider: AuthTokenProvider
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
@@ -65,7 +67,9 @@ class LoginViewModel @Inject constructor(
 
             runCatching {
                 loginUseCase(currentState.email.trim(), currentState.senha)
-            }.onSuccess {
+            }.onSuccess { tokenResult ->
+                authTokenProvider.updateToken(tokenResult)
+
                 _uiState.update {
                     it.copy(
                         isLoading = false,
