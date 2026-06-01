@@ -261,8 +261,9 @@ private val lightScheme = lightColorScheme(
 )
 
 private val darkScheme = darkColorScheme(
-    primary = primaryDark,
-    onPrimary = onPrimaryDark,
+
+    primary = Color(0xFFBAC3FF),
+    onPrimary = Color(0xFF1A237E),
     primaryContainer = primaryContainerDark,
     onPrimaryContainer = onPrimaryContainerDark,
     secondary = secondaryDark,
@@ -277,12 +278,15 @@ private val darkScheme = darkColorScheme(
     onError = onErrorDark,
     errorContainer = errorContainerDark,
     onErrorContainer = onErrorContainerDark,
-    background = backgroundDark,
-    onBackground = onBackgroundDark,
-    surface = surfaceDark,
-    onSurface = onSurfaceDark,
-    surfaceVariant = surfaceVariantDark,
-    onSurfaceVariant = onSurfaceVariantDark,
+
+
+    background = Color(0xFF13131A),
+    onBackground = Color(0xFFE2E2E9),
+
+    surface = Color.White,
+    onSurface = Color.Black,
+    surfaceVariant = Color(0xFFE2E2E9),
+    onSurfaceVariant = Color(0xFF45464F),
     outline = outlineDark,
     outlineVariant = outlineVariantDark,
     scrim = scrimDark,
@@ -291,9 +295,9 @@ private val darkScheme = darkColorScheme(
     inversePrimary = inversePrimaryDark,
     surfaceDim = surfaceDimDark,
     surfaceBright = surfaceBrightDark,
-    surfaceContainerLowest = surfaceContainerLowestDark,
+    surfaceContainerLowest = Color.White,
     surfaceContainerLow = surfaceContainerLowDark,
-    surfaceContainer = surfaceContainerDark,
+    surfaceContainer = Color.White,
     surfaceContainerHigh = surfaceContainerHighDark,
     surfaceContainerHighest = surfaceContainerHighestDark,
 )
@@ -466,7 +470,7 @@ val unspecified_scheme = ColorFamily(
 fun SmartCuisineTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable() () -> Unit
 ) {
   val colorScheme = when {

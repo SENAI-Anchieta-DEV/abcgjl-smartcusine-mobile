@@ -1,7 +1,9 @@
 package com.senai.abcgjl_smartcuisine_mobile.app.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -33,8 +35,6 @@ fun AppNavHost(
             null -> AppDestinations.Login.route
         }
     }
-
-
 
     LaunchedEffect(sessionState, sessionUser.role) {
         when (sessionState) {
@@ -70,14 +70,12 @@ fun AppNavHost(
             if (sessionState == SessionState.Loading) {
                 LoadingState(message = "Restaurando a sessão...")
             } else {
-                UnauthenticatedShell(title = "Entrar") {
+                UnauthenticatedShell(
+                    title = "",
+                    showHeader = false
+                ) { innerPadding ->
                     LoginScreen(
-                        innerPadding = it,
-                        onLoginSuccess = {
-                            navController.navigate(authenticatedRouteForCurrentUser()) {
-                                popUpTo(AppDestinations.Login.route) { inclusive = true }
-                            }
-                        },
+                        innerPadding = innerPadding,
                         onNavigateToSignup = { navController.navigate(AppDestinations.Signup.route) }
                     )
                 }
@@ -97,7 +95,5 @@ fun AppNavHost(
         composable(AppDestinations.Home.route) {
             LoadingState(message = "Redirecionando para o perfil do usuário...")
         }
-
-
     }
 }

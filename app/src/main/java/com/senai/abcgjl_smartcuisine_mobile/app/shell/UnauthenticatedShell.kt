@@ -6,27 +6,39 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp // 🚀 Import necessário para o 0.dp
 
 @Composable
 fun UnauthenticatedShell(
     title: String,
+    showHeader: Boolean = true,
     navigationIconType: NavigationIconType = NavigationIconType.NONE,
     onNavigationClick: (() -> Unit)? = null,
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
         topBar = {
-            AppTopBar(
-                config = AppBarConfig(
-                    title = title,
-                    navigationIconType = navigationIconType
-                ),
-                onNavigationClick = onNavigationClick
-            )
+            if (showHeader) {
+                AppTopBar(
+                    config = AppBarConfig(
+                        title = title,
+                        navigationIconType = navigationIconType
+                    ),
+                    onNavigationClick = onNavigationClick
+                )
+            }
         }
     ) { innerPadding ->
         Box(modifier = Modifier.fillMaxSize()) {
-            content(innerPadding)
+            val adjustedPadding = if (showHeader) {
+                innerPadding
+            } else {
+                PaddingValues(
+                    top = 0.dp,
+                    bottom = innerPadding.calculateBottomPadding()
+                )
+            }
+            content(adjustedPadding)
         }
     }
 }
