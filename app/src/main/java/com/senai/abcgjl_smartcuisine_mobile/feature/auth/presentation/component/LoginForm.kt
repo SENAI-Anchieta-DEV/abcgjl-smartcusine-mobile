@@ -20,6 +20,7 @@ import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.theme.SmartCuisine
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.ui.components.background.AuthGradientBackground
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.state.LoginUiState
 
+
 @Composable
 fun LoginContent(
     uiState: LoginUiState,
@@ -33,7 +34,7 @@ fun LoginContent(
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        // Fundo em gradiente estilizado do seu app
+
         AuthGradientBackground()
 
         Column(
@@ -44,7 +45,6 @@ fun LoginContent(
         ) {
             Spacer(modifier = Modifier.height(40.dp))
 
-            // Logo do Smart Cuisine
             Image(
                 painter = painterResource(id = R.drawable.logosmartcuisine),
                 contentDescription = "logo smartcuisine",
@@ -53,7 +53,6 @@ fun LoginContent(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Card Branco Flutuante do Formulário
             Surface(
                 shape = RoundedCornerShape(24.dp),
                 color = Color.White,
@@ -68,31 +67,28 @@ fun LoginContent(
                     Text(
                         text = "Login",
                         style = MaterialTheme.typography.headlineMedium,
-                        color = Color.Black // Garante legibilidade no card branco
+                        color = Color.Black
                     )
 
                     Spacer(modifier = Modifier.height(4.dp))
 
-                    // Campo de E-mail usando o seu Design System
                     AppTextField(
                         value = uiState.email,
                         label = "E-mail",
                         onValueChange = onEmailChange,
                         isError = uiState.emailError != null,
-                        supportingText = uiState.emailError
+                        supportingText = uiState.emailError,
                     )
 
-                    // Campo de Senha usando o seu Design System
                     AppTextField(
                         value = uiState.senha,
                         label = "Senha",
                         onValueChange = onPasswordChange,
                         isPassword = true,
                         isError = uiState.senhaError != null,
-                        supportingText = uiState.senhaError
+                        supportingText = uiState.senhaError,
                     )
 
-                    // Linha do Lembrar Senha / Esqueci a Senha
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -118,7 +114,6 @@ fun LoginContent(
                         )
                     }
 
-                    // Mensagem de erro geral da API, se houver
                     uiState.errorMessage?.let {
                         Text(
                             text = it,
@@ -130,32 +125,29 @@ fun LoginContent(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // Botão Principal usando o componente do seu Design System
                     AppPrimaryButton(
                         text = if (uiState.isLoading) "Entrando..." else "Entrar",
                         onClick = onLoginClick,
-                        enabled = !uiState.isLoading
+                        enabled = !uiState.isLoading,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
                     )
 
-                    Text(
-                        text = "Ou",
-                        fontSize = 12.sp,
-                        color = Color.Gray,
-                        modifier = Modifier.padding(vertical = 4.dp)
-                    )
 
-                    // Botão de Cadastro adaptado para o padrão visual secundário
                     Button(
                         onClick = onSignupClick,
                         enabled = !uiState.isLoading,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.LightGray,
+                            containerColor = Color(0xFFE0E0E0),
                             contentColor = Color.Black
                         )
                     ) {
-                        Text("Cadastre-se")
+                        Text("Cadastre-se", fontSize = 14.sp)
                     }
                 }
             }
@@ -163,14 +155,12 @@ fun LoginContent(
     }
 }
 
-// --- PREVIEWS CONFIGURADOS COM ESTADOS MOCKADOS ---
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewLoginContentClaro() {
     SmartCuisineTheme(darkTheme = false) {
         LoginContent(
-            uiState = LoginUiState(email = "aluno@senai.com", senha = "123"),
+            uiState = LoginUiState(email = "jamily@adm.com", senha = "123456"),
             onEmailChange = {},
             onPasswordChange = {},
             onLoginClick = {},
@@ -187,7 +177,7 @@ fun PreviewLoginContentClaro() {
 fun PreviewLoginContentEscuro() {
     SmartCuisineTheme(darkTheme = true) {
         LoginContent(
-            uiState = LoginUiState(isLoading = true),
+            uiState = LoginUiState(),
             onEmailChange = {},
             onPasswordChange = {},
             onLoginClick = {},

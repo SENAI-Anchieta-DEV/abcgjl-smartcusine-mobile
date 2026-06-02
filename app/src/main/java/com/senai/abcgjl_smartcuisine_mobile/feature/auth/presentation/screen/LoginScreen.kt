@@ -21,7 +21,7 @@ fun LoginScreen(
     LoginContent(
         uiState = uiState,
         onEmailChange = { email -> viewModel.onEmailChange(email) },
-        onPasswordChange = { senha -> viewModel.onPasswordChange(senha) }, // 🚀 Corrigido para bater com o seu ViewModel!
+        onPasswordChange = { senha -> viewModel.onPasswordChange(senha) },
         onLoginClick = { viewModel.login() },
         onSignupClick = onNavigateToSignup,
         onEsqueciSenhaClick = {

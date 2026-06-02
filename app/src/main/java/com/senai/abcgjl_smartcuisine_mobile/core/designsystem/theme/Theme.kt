@@ -281,12 +281,12 @@ private val darkScheme = darkColorScheme(
 
 
     background = Color(0xFF13131A),
-    onBackground = Color(0xFFE2E2E9),
+    onBackground = Color(0xFF000000),
 
     surface = Color.White,
     onSurface = Color.Black,
     surfaceVariant = Color(0xFFE2E2E9),
-    onSurfaceVariant = Color(0xFF45464F),
+    onSurfaceVariant = Color(0xFF000000),
     outline = outlineDark,
     outlineVariant = outlineVariantDark,
     scrim = scrimDark,
@@ -469,7 +469,6 @@ val unspecified_scheme = ColorFamily(
 @Composable
 fun SmartCuisineTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
     content: @Composable() () -> Unit
 ) {
