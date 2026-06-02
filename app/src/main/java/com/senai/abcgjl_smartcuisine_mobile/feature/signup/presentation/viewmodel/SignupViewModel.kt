@@ -3,6 +3,7 @@ package com.senai.abcgjl_smartcuisine_mobile.feature.signup.presentation.viewmod
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
+import com.senai.abcgjl_smartcuisine_mobile.core.network.api.AuthTokenProvider
 import com.senai.abcgjl_smartcuisine_mobile.feature.signup.domain.model.SignupForm
 import com.senai.abcgjl_smartcuisine_mobile.feature.signup.domain.usecase.RegisterUserUseCase
 import com.senai.abcgjl_smartcuisine_mobile.feature.signup.presentation.state.SignupUiState
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
-    private val registerUserUseCase: RegisterUserUseCase
+    private val registerUserUseCase: RegisterUserUseCase,
+    private val authTokenProvider: AuthTokenProvider
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SignupUiState())
@@ -70,6 +72,7 @@ class SignupViewModel @Inject constructor(
 
         viewModelScope.launch {
             _uiState.update { it.copy(isSubmitting = true, errorMessage = null, successMessage = null) }
+
             runCatching {
                 registerUserUseCase(
                     SignupForm(
@@ -80,6 +83,10 @@ class SignupViewModel @Inject constructor(
                     )
                 )
             }.onSuccess { result ->
+                result.token?.let { token ->
+                    authTokenProvider.updateToken(token)
+                }
+
                 _uiState.update {
                     SignupUiState(
                         successMessage = result.message,

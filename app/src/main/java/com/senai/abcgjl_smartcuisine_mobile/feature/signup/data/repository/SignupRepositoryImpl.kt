@@ -33,9 +33,10 @@ class SignupRepositoryImpl @Inject constructor(
             )
 
             SignupResult(
-                enrollment = response.enrollment,
+                enrollment = response.enrollment?:"",
                 status = response.status,
-                message = response.message
+                message = response.message,
+                token =  response.token
             )
         } catch (throwable: Throwable) {
             throw IllegalStateException(
@@ -72,4 +73,4 @@ class SignupRepositoryImpl @Inject constructor(
 }
 
 private fun String.toTextRequestBody(): RequestBody =
-    toRequestBody("text/plain".toMediaType())
+    toRequestBody("multipart/form-data".toMediaType())

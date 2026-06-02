@@ -10,9 +10,14 @@ class AuthInterceptor @Inject constructor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val path = originalRequest.url.encodedPath
+        val path = originalRequest.url.encodedPath.lowercase()
 
-        if (path.contains("/login", ignoreCase = true) || path.contains("/register", ignoreCase = true)) {
+        val isPublicRoute = path.contains("/login") ||
+                path.contains("/register") ||
+                path.contains("/signup") ||
+                path.contains("usuarios/cadastro")
+
+        if (isPublicRoute) {
             return chain.proceed(originalRequest)
         }
 
