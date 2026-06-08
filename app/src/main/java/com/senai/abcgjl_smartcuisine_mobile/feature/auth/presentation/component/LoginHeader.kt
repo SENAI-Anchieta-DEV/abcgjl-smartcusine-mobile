@@ -15,11 +15,11 @@ fun LoginHeader() {
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = "Carteirinha Digital",
+            text = "",
             style = MaterialTheme.typography.headlineMedium
         )
         Text(
-            text = "Fase 3: login com persistência de sessão e cadastro inicial com aprovação pendente.",
+            text = "",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

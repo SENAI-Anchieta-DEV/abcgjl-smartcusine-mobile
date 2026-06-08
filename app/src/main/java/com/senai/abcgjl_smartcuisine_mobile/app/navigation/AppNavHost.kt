@@ -17,6 +17,7 @@ import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.component.LoadingS
 import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionViewModel
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
 import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionState
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeAdminScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.LoginScreen
 
 @Composable
@@ -30,8 +31,8 @@ fun AppNavHost(
     fun authenticatedRouteForCurrentUser(): String {
         return when (sessionUser.role) {
             UserRole.ADMINISTRADOR -> AppDestinations.AdmHome.route
-            UserRole.GERENTE -> AppDestinations.GerenteHome.route
-            UserRole.COZINHEIRO -> AppDestinations.CozinheiroHome.route
+            UserRole.GERENTE -> AppDestinations.AdmHome.route
+            UserRole.COZINHEIRO -> AppDestinations.AdmHome.route
             null -> AppDestinations.Login.route
         }
     }
@@ -76,7 +77,12 @@ fun AppNavHost(
                 ) { innerPadding ->
                     LoginScreen(
                         innerPadding = innerPadding,
-                        onNavigateToSignup = { navController.navigate(AppDestinations.Signup.route) }
+                        onNavigateToSignup = {
+                            navController.navigate(AppDestinations.Signup.route)
+                        },
+                        onNavigateToHome = {
+                            navController.navigate(AppDestinations.Home.route)
+                        }
                     )
                 }
             }
@@ -97,7 +103,7 @@ fun AppNavHost(
         }
 
         composable(AppDestinations.Home.route) {
-            LoadingState(message = "Redirecionando para o perfil do usuário...")
+            HomeAdminScreen(navController = navController)
         }
     }
 }

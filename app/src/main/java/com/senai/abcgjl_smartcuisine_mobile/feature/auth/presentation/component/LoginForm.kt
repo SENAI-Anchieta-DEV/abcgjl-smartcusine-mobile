@@ -29,6 +29,7 @@ fun LoginContent(
     onLoginClick: () -> Unit,
     onSignupClick: () -> Unit,
     onEsqueciSenhaClick: () -> Unit,
+    onEntrarSemCadastroClick: () -> Unit,
     lembrar: Boolean,
     onLembrarChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
@@ -149,6 +150,15 @@ fun LoginContent(
                     ) {
                         Text("Cadastre-se", fontSize = 14.sp)
                     }
+
+                    Text(
+                        text = "Entrar sem cadastro",
+                        fontSize = 13.sp,
+                        color = Color(0xFF4A90E2),
+                        modifier = Modifier.clickable {
+                            onEntrarSemCadastroClick()
+                        }
+                    )
                 }
             }
         }
@@ -166,6 +176,7 @@ fun PreviewLoginContentClaro() {
             onLoginClick = {},
             onSignupClick = {},
             onEsqueciSenhaClick = {},
+            onEntrarSemCadastroClick = {},
             lembrar = true,
             onLembrarChange = {}
         )
@@ -183,6 +194,7 @@ fun PreviewLoginContentEscuro() {
             onLoginClick = {},
             onSignupClick = {},
             onEsqueciSenhaClick = {},
+            onEntrarSemCadastroClick = {},
             lembrar = false,
             onLembrarChange = {}
         )

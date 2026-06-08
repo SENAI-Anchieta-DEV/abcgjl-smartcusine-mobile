@@ -1,4 +1,4 @@
-package com.senai.abcgjl_smartcuisine_mobile.app.shell
+ package com.senai.abcgjl_smartcuisine_mobile.app.shell
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues

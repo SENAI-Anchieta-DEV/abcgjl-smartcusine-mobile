@@ -13,6 +13,7 @@ import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.
 fun LoginScreen(
     innerPadding: PaddingValues,
     onNavigateToSignup: () -> Unit,
+    onNavigateToHome: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -25,8 +26,9 @@ fun LoginScreen(
         onLoginClick = { viewModel.login() },
         onSignupClick = onNavigateToSignup,
         onEsqueciSenhaClick = {
-            // Espaço reservado para quando você criar a rota do Esqueci Senha no AppDestinations
+            // Espaço reservado para quando você criar a rota do Esqueci Senha
         },
+        onEntrarSemCadastroClick = onNavigateToHome,
         lembrar = lembrar,
         onLembrarChange = { lembrar = it },
         modifier = Modifier.padding(innerPadding)

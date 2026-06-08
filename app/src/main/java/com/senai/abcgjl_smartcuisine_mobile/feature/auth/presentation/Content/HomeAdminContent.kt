@@ -45,9 +45,9 @@ fun HomeAdminContent(
         item { Spacer(modifier = Modifier.height(24.dp)) }
 
         // 2. Alertas
-        item { AlertCard("Alimento Vencido", "Um item vencido precisa ser removido", Color.Red) }
-        item { Spacer(modifier = Modifier.height(12.dp)) }
-        item { AlertCard("Atenção: Validade próxima", "Itens vencem em 5 dias", Color(0xFFE6863B)) }
+        //item { AlertCard("Alimento Vencido", "Um item vencido precisa ser removido", Color.Red) }
+       // item { Spacer(modifier = Modifier.height(12.dp)) }
+        //item { AlertCard("Atenção: Validade próxima", "Itens vencem em 5 dias", Color(0xFFE6863B)) }
 
         item { Spacer(modifier = Modifier.height(24.dp)) }
 
@@ -89,14 +89,6 @@ fun AdminHeader(onReportsClick: () -> Unit, onAddProductClick: () -> Unit) {
         // Logo Placeholder
         Icon(Icons.Default.RestaurantMenu, contentDescription = null, tint = Color(0xFFE6863B), modifier = Modifier.size(40.dp))
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = onReportsClick, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6A7B8A)), shape = RoundedCornerShape(8.dp)) {
-                Text("Relatórios Semanais", fontSize = 10.sp)
-            }
-            Button(onClick = onAddProductClick, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE6863B)), shape = RoundedCornerShape(8.dp)) {
-                Text("+ Adicionar Produto", fontSize = 10.sp)
-            }
-        }
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Icon(Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.size(45.dp), tint = Color(0xFF6A7B8A))
@@ -160,3 +152,4 @@ fun StatItem(label: String, value: String) {
         Text(label, fontSize = 9.sp, color = Color.Gray, textAlign = TextAlign.Center)
     }
 }
+
