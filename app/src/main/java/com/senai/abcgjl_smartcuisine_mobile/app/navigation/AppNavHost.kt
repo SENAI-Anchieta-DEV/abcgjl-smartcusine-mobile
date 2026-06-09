@@ -17,6 +17,7 @@ import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.component.LoadingS
 import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionViewModel
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
 import com.senai.abcgjl_smartcuisine_mobile.core.session.SessionState
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.EsqueciSenhaScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.HomeAdminScreen
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.screen.LoginScreen
 
@@ -82,6 +83,9 @@ fun AppNavHost(
                         },
                         onNavigateToHome = {
                             navController.navigate(AppDestinations.Home.route)
+                        },
+                        onNavigateToEsqueciSenha = {
+                            navController.navigate(AppDestinations.EsqueciSenha.route)
                         }
                     )
                 }
@@ -105,5 +109,18 @@ fun AppNavHost(
         composable(AppDestinations.Home.route) {
             HomeAdminScreen(navController = navController)
         }
+
+        composable(AppDestinations.EsqueciSenha.route) {
+            //UnauthenticatedShell(
+                //title = "Recuperar senha",
+               // showHeader = true,
+                //navigationIconType = NavigationIconType.BACK,
+                //onNavigationClick = { navController.popBackStack() }
+            //) { _ ->
+
+                EsqueciSenhaScreen(
+                    navController = navController
+                )
+            }
+        }
     }
-}

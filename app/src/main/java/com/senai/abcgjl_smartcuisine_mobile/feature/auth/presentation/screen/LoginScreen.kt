@@ -14,23 +14,29 @@ fun LoginScreen(
     innerPadding: PaddingValues,
     onNavigateToSignup: () -> Unit,
     onNavigateToHome: () -> Unit,
+    onNavigateToEsqueciSenha: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var lembrar by remember { mutableStateOf(false) }
+    val lembrar by viewModel.lembrar.collectAsStateWithLifecycle()
+
+    LaunchedEffect(uiState.isAuthenticated) {
+        if (uiState.isAuthenticated) {
+            onNavigateToHome()
+            viewModel.consumeAuthentication()
+        }
+    }
 
     LoginContent(
         uiState = uiState,
-        onEmailChange = { email -> viewModel.onEmailChange(email) },
-        onPasswordChange = { senha -> viewModel.onPasswordChange(senha) },
-        onLoginClick = { viewModel.login() },
+        onEmailChange = viewModel::onEmailChange,
+        onPasswordChange = viewModel::onPasswordChange,
+        onLoginClick = viewModel::login,
         onSignupClick = onNavigateToSignup,
-        onEsqueciSenhaClick = {
-            // Espaço reservado para quando você criar a rota do Esqueci Senha
-        },
+        onEsqueciSenhaClick = onNavigateToEsqueciSenha,
         onEntrarSemCadastroClick = onNavigateToHome,
         lembrar = lembrar,
-        onLembrarChange = { lembrar = it },
+        onLembrarChange = viewModel::onLembrarChange,
         modifier = Modifier.padding(innerPadding)
     )
 }

@@ -5,4 +5,5 @@ sealed class AppDestinations(val route: String) {
     data object Signup : AppDestinations("signup")
     data object Home : AppDestinations("home")
     data object AdmHome : AppDestinations("adm_home")
+    object EsqueciSenha : AppDestinations("esqueci_senha")
 }
