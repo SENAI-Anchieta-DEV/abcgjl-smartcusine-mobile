@@ -9,6 +9,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.theme.SmartCuisineTheme
+import com.senai.abcgjl_smartcuisine_mobile.core.model.SessionUser
+import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.DashboardStats
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.SensorData
 
@@ -26,8 +32,10 @@ fun HomeAdminContent(
     paddingValues: PaddingValues,
     stats: DashboardStats,
     sensores: List<SensorData>,
+    sessionUser: SessionUser = SessionUser(),
     onAddProductClick: () -> Unit,
-    onReportsClick: () -> Unit
+    onReportsClick: () -> Unit,
+    onLogout: () -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier
@@ -40,7 +48,9 @@ fun HomeAdminContent(
         item { Spacer(modifier = Modifier.height(16.dp)) }
 
         // 1. Cabeçalho
-        item { AdminHeader(onReportsClick, onAddProductClick) }
+        item { Spacer(modifier = Modifier.height(16.dp)) }
+
+        item { AdminHeader(sessionUser, onReportsClick, onAddProductClick, onLogout) }
 
         item { Spacer(modifier = Modifier.height(24.dp)) }
 
@@ -80,20 +90,79 @@ fun HomeAdminContent(
 // --- FUNÇÕES AUXILIARES (COMPONENTES) ---
 
 @Composable
-fun AdminHeader(onReportsClick: () -> Unit, onAddProductClick: () -> Unit) {
+fun AdminHeader(
+    sessionUser: SessionUser,
+    onReportsClick: () -> Unit,
+    onAddProductClick: () -> Unit,
+    onLogout: () -> Unit
+) {
+    var showMenu by remember { mutableStateOf(false) }
+
+    val roleLabel = when (sessionUser.role) {
+        UserRole.ADMINISTRADOR -> "Administrador"
+        UserRole.GERENTE       -> "Gerente"
+        UserRole.COZINHEIRO    -> "Cozinheiro"
+        null                   -> "Usuário"
+    }
+    val displayName = sessionUser.nome.ifBlank { roleLabel }
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Logo Placeholder
-        Icon(Icons.Default.RestaurantMenu, contentDescription = null, tint = Color(0xFFE6863B), modifier = Modifier.size(40.dp))
-
-
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.size(45.dp), tint = Color(0xFF6A7B8A))
-            Text("Bem-Vindo,", fontSize = 10.sp)
-            Text("Administrador", fontWeight = FontWeight.Bold, fontSize = 10.sp)
+
+            Box {
+                Icon(
+                    Icons.Default.AccountCircle,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(45.dp)
+                        .clickable { showMenu = true },
+                    tint = Color(0xFF6A7B8A)
+                )
+
+                DropdownMenu(
+                    expanded = showMenu,
+                    onDismissRequest = { showMenu = false }
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(displayName, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        Text(roleLabel, fontSize = 12.sp, color = Color.Gray)
+                    }
+
+                    Divider()
+
+                    DropdownMenuItem(
+                        text = {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    Icons.Default.ExitToApp,
+                                    contentDescription = null,
+                                    tint = Color.Red,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("Sair", color = Color.Red)
+                            }
+                        },
+                        onClick = {
+                            showMenu = false
+                            onLogout()
+                        }
+                    )
+                }
+            }
+
+            Text("Bem-vindo,", fontSize = 10.sp)
+            Text(displayName, fontWeight = FontWeight.Bold, fontSize = 10.sp)
+            if (sessionUser.nome.isNotBlank()) {
+                Text(roleLabel, fontSize = 9.sp, color = Color.Gray)
+            }
         }
     }
 }

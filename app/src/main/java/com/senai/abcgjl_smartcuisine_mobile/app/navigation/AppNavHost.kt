@@ -82,7 +82,7 @@ fun AppNavHost(
                             navController.navigate(AppDestinations.Signup.route)
                         },
                         onNavigateToHome = {
-                            navController.navigate(AppDestinations.Home.route)
+                            navController.navigate(AppDestinations.AdmHome.route)
                         },
                         onNavigateToEsqueciSenha = {
                             navController.navigate(AppDestinations.EsqueciSenha.route)
@@ -106,17 +106,11 @@ fun AppNavHost(
             }
         }
 
-        composable(AppDestinations.Home.route) {
-            HomeAdminScreen(navController = navController)
+        composable(AppDestinations.AdmHome.route) {
+            HomeAdminScreen(navController = navController, sessionViewModel = sessionViewModel)
         }
 
         composable(AppDestinations.EsqueciSenha.route) {
-            //UnauthenticatedShell(
-                //title = "Recuperar senha",
-               // showHeader = true,
-                //navigationIconType = NavigationIconType.BACK,
-                //onNavigationClick = { navController.popBackStack() }
-            //) { _ ->
 
                 EsqueciSenhaScreen(
                     navController = navController
