@@ -5,6 +5,7 @@ import android.net.Uri
 import com.senai.abcgjl_smartcuisine_mobile.core.common.network.ApiExceptionParser
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
 import com.senai.abcgjl_smartcuisine_mobile.feature.signup.data.remote.SignupApiService
+import com.senai.abcgjl_smartcuisine_mobile.feature.signup.data.remote.request.SignupRequestDto
 import com.senai.abcgjl_smartcuisine_mobile.feature.signup.domain.model.SignupForm
 import com.senai.abcgjl_smartcuisine_mobile.feature.signup.domain.model.SignupResult
 import com.senai.abcgjl_smartcuisine_mobile.feature.signup.domain.repository.SignupRepository
@@ -24,19 +25,19 @@ class SignupRepositoryImpl @Inject constructor(
 
     override suspend fun register(form: SignupForm): SignupResult {
         return try {
-
             val response = signupApiService.register(
-                nome = form.nome.trim().toTextRequestBody(),
-                email = form.email.trim().toTextRequestBody(),
-                senha = form.senha.toTextRequestBody(),
-                role = form.role.name.toTextRequestBody()
+                SignupRequestDto(
+                    nome = form.nome.trim(),
+                    email = form.email.trim(),
+                    senha = form.senha,
+                    tipoUsuario = form.role.name
+                )
             )
-
             SignupResult(
-                enrollment = response.enrollment?:"",
+                enrollment = response.enrollment ?: "",
                 status = response.status,
                 message = response.message,
-                token =  response.token
+                token = response.token
             )
         } catch (throwable: Throwable) {
             throw IllegalStateException(
