@@ -15,42 +15,36 @@ class AuthRepositoryImpl @Inject constructor(
     private val authApiService: AuthApiService
 ) : AuthRepository {
 
-    override suspend fun login(email: String, senha: String): AuthSession {
+    override suspend fun login(
+        email: String,
+        senha: String
+    ): AuthSession {
+
         return try {
+
             val loginResponse = authApiService.login(
-                LoginRequestDto(email = email, senha = senha)
+                LoginRequestDto(
+                    email = email,
+                    senha = senha
+                )
             )
 
             val token = loginResponse.accessToken.trim()
+
             require(token.isNotBlank()) {
                 "A API retornou um token vazio no login."
             }
 
-            val meResponse = authApiService.getCurrentUser(
-                authorization = "Bearer $token"
-            )
-
-            val approvalStatus = ApprovalStatus.fromApiValue(meResponse.status)
-            if (approvalStatus == ApprovalStatus.PENDENTE) {
-                throw IllegalStateException(
-                    "Cadastro pendente de aprovação. Aguarde a liberação na aplicação web para entrar no app."
-                )
-            }
-
-            val userRole = UserRole.fromApiValue(meResponse.role)
-                ?: throw IllegalStateException(
-                    "O usuário autenticado não possui tipo definido na API. Ajuste o cadastro antes de entrar no app."
-                )
-
             AuthSession(
                 user = SessionUser(
-                    nome = meResponse.nome.orEmpty(),
-                    email = meResponse.email.orEmpty(),
-                    role = userRole,
+                    nome = "",
+                    email = email,
+                    role = UserRole.ADMIN,
                     authToken = token,
-                    approvalStatus = approvalStatus
+                    approvalStatus = ApprovalStatus.APROVADO
                 )
             )
+
         } catch (throwable: Throwable) {
             throw IllegalStateException(
                 ApiExceptionParser.toMessage(
@@ -65,4 +59,3 @@ class AuthRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 }
-

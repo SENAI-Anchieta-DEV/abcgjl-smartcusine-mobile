@@ -5,6 +5,5 @@ import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.model.User
 
 data class LoginResponseDto(
     @SerializedName("accessToken", alternate = ["token"])
-    val accessToken: String,
-    val user: User
+    val accessToken: String
 )

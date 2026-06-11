@@ -14,9 +14,4 @@ interface AuthApiService {
     suspend fun login(
         @Body request: LoginRequestDto
     ): LoginResponseDto
-
-    @GET("auth/me")
-    suspend fun getCurrentUser(
-        @Header("Authorization") authorization: String
-    ): MeResponseDto
 }
