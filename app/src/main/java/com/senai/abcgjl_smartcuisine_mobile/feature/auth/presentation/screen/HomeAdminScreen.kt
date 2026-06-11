@@ -11,20 +11,21 @@ import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.Content.Ad
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.Content.HomeAdminContent
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.DashboardStats
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.SensorData
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.SensorViewModel
 
 // HomeAdminScreen.kt
 @Composable
 fun HomeAdminScreen(
     navController: NavController,
-    sessionViewModel: SessionViewModel
+    sessionViewModel: SessionViewModel,
+    sensorViewModel: SensorViewModel = hiltViewModel()
 ) {
     val sessionUser by sessionViewModel.sessionUser.collectAsState()
 
+    // 2. Coleta o StateFlow dos sensores em tempo real
+    val sensores by sensorViewModel.sensores.collectAsState()
+
     val stats = DashboardStats(11, 2, 6, 2, 1)
-    val sensores = listOf(
-        SensorData("Freezer 1", "-13°C", "Normal", "Ideal: -10 à -15°C", false),
-        SensorData("Forno 1", "190°C", "Normal", "Ideal: 180 à 200°C", true)
-    )
 
     Scaffold(
         bottomBar = { AdminBottomSummary(stats) }

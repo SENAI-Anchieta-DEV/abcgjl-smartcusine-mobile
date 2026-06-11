@@ -4,4 +4,6 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class SmartCuisineApplication : Application()
+class SmartCuisineApplication : Application(){
+
+}
