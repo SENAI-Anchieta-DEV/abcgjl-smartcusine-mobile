@@ -165,7 +165,11 @@ fun AdminHeader(
                 }
             }
 
-            Text("Bem-vindo,", fontSize = 10.sp)
+            Text(
+                text = "Bem-vindo, $roleLabel",
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
             Text(displayName, fontWeight = FontWeight.Bold, fontSize = 10.sp)
             if (sessionUser.nome.isNotBlank()) {
                 Text(roleLabel, fontSize = 9.sp, color = Color.Gray)
