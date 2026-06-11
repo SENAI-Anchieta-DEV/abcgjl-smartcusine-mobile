@@ -16,17 +16,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.senai.abcgjl_smartcuisine_mobile.core.designsystem.theme.SmartCuisineTheme
 import com.senai.abcgjl_smartcuisine_mobile.core.model.SessionUser
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.DashboardStats
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.presentation.viewmodel.SensorData
+import com.senai.abcgjl_smartcuisine_mobile.R
 
+import androidx.compose.foundation.Image
 @Composable
 fun HomeAdminContent(
     paddingValues: PaddingValues,
@@ -99,7 +100,7 @@ fun AdminHeader(
     var showMenu by remember { mutableStateOf(false) }
 
     val roleLabel = when (sessionUser.role) {
-        UserRole.ADMINISTRADOR -> "Administrador"
+        UserRole.ADMIN -> "Administrador"
         UserRole.GERENTE       -> "Gerente"
         UserRole.COZINHEIRO    -> "Cozinheiro"
         null                   -> "Usuário"
@@ -111,6 +112,12 @@ fun AdminHeader(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.logosmartcuisine),
+            contentDescription = "Logo SmartCuisine",
+            modifier = Modifier.height(70.dp)
+        )
+
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
             Box {

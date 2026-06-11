@@ -37,24 +37,27 @@ class UserRepository(
 
     suspend fun cadastrarUsuario(user: User): Result<Unit> {
         return try {
+
+            Log.d("CADASTRO", "Enviando: $user")
+
             val response = api.cadastrar(user)
+
+            Log.d("CADASTRO", "Código: ${response.code()}")
+            Log.d("CADASTRO", "Code: ${response.code()}")
+            Log.d("CADASTRO", "Success: ${response.isSuccessful}")
+            Log.d("CADASTRO", "Erro: ${response.errorBody()?.string()}")
+
             if (response.isSuccessful) {
                 Result.success(Unit)
             } else {
-                val codigoErro = response.code()
-                val erroBruto = response.errorBody()?.string() ?: ""
-                val mensagemParaUsuario = when (codigoErro) {
-                    500 -> "Erro interno no servidor: $erroBruto "
-                    404 -> "Rota de cadastro não encontrada no servidor."
-                    400 -> "Dados inválidos. Verifique os campos e tente novamente."
-                    else -> "Erro desconhecido ($codigoErro): $erroBruto"
-                }
-
-                Result.failure(Exception(mensagemParaUsuario))
+                Result.failure(
+                    Exception("Erro ${response.code()}")
+                )
             }
+
         } catch (e: Exception) {
-            Log.e("REPO", "Erro de rede", e)
-            Result.failure(Exception("Falha na conexão com o servidor."))
+            Log.e("CADASTRO", "EXCEPTION", e)
+            Result.failure(e)
         }
     }
 

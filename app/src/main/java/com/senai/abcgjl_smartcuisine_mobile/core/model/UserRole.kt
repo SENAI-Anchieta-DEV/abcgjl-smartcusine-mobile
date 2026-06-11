@@ -1,7 +1,7 @@
 package com.senai.abcgjl_smartcuisine_mobile.core.model
 
 enum class UserRole {
-    ADMINISTRADOR,
+    ADMIN,
     GERENTE,
     COZINHEIRO;
 

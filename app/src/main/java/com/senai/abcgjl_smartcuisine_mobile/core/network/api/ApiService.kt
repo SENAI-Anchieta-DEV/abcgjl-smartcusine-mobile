@@ -11,7 +11,7 @@ import retrofit2.http.POST
 
 interface ApiService {
 
-    @POST("usuarios")
+    @POST("usuarios/cadastro")
     suspend fun cadastrar(@Body user: User): Response<UserResponse>
 
     @POST("auth/login")

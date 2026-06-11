@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
 
     private const val BASE_URL =
-        "https://abcgjl-smartcuisine-backend-api.onrender.com/"
+        "https://abcgjl-smartcusine-backend-api.onrender.com/"
 
     fun getApi(authTokenProvider: AuthTokenProvider): ApiService {
 

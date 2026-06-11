@@ -6,5 +6,5 @@ data class LoginRequestDto(
     val email: String,
     @SerializedName("senha")
     val senha: String,
-    val tipoUsuario: String = ""
+    val tipoUsuario: String = "COZINHEIRO"
 )

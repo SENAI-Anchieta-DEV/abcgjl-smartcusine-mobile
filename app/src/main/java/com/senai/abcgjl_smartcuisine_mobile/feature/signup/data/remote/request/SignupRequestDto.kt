@@ -6,5 +6,5 @@ data class SignupRequestDto(
     @SerializedName("nome") val nome: String,
     @SerializedName("email") val email: String,
     @SerializedName("senha") val senha: String,
-    @SerializedName("tipoUsuario") val tipoUsuario: String
+    @SerializedName("tipo") val tipoUsuario: String
 )

@@ -39,7 +39,7 @@ fun SignupForm(
     modifier: Modifier = Modifier
 ) {
     val perfisDisponiveis = listOf(
-        "Administrador" to UserRole.ADMINISTRADOR,
+        "Administrador" to UserRole.ADMIN,
         "Gerente" to UserRole.GERENTE,
         "Cozinheiro" to UserRole.COZINHEIRO
     )

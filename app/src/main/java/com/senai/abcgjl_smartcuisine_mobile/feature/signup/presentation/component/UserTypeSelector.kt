@@ -30,8 +30,8 @@ fun UserTypeSelector(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             FilterChip(
-                selected = selectedRole == UserRole.ADMINISTRADOR, //VER DIREITO O USUARIO
-                onClick = { onRoleSelected(UserRole.ADMINISTRADOR) },
+                selected = selectedRole == UserRole.ADMIN, //VER DIREITO O USUARIO
+                onClick = { onRoleSelected(UserRole.ADMIN) },
                 label = { Text("Aluno") },
                 modifier = Modifier.weight(1f).heightIn(min = 48.dp)
             )

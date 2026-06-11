@@ -83,14 +83,15 @@ class SignupViewModel @Inject constructor(
                     )
                 )
             }.onSuccess { result ->
+
                 result.token?.let { token ->
                     authTokenProvider.updateToken(token)
                 }
 
                 _uiState.update {
-                    SignupUiState(
-                        successMessage = result.message,
-                        generatedEnrollment = result.enrollment
+                    it.copy(
+                        isSubmitting = false,
+                        successMessage = "Cadastro realizado com sucesso!"
                     )
                 }
             }.onFailure { throwable ->

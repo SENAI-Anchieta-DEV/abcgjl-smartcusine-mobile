@@ -10,7 +10,7 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 
 interface SignupApiService {
-    @POST("usuarios/cadastro")
+    @POST("usuarios")
     suspend fun register(
         @Body request: SignupRequestDto
     ): SignupResponseDto

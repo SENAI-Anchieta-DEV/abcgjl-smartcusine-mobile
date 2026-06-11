@@ -34,10 +34,10 @@ class SignupRepositoryImpl @Inject constructor(
                 )
             )
             SignupResult(
-                enrollment = response.enrollment ?: "",
-                status = response.status,
-                message = response.message,
-                token = response.token
+                enrollment = response.id.toString(),
+                status = "SUCESSO",
+                message = "Usuário cadastrado com sucesso",
+                token = null
             )
         } catch (throwable: Throwable) {
             throw IllegalStateException(

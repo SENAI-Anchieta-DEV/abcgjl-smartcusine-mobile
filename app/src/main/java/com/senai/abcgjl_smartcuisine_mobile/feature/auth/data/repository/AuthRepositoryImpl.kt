@@ -6,6 +6,7 @@ import com.senai.abcgjl_smartcuisine_mobile.core.model.SessionUser
 import com.senai.abcgjl_smartcuisine_mobile.core.model.UserRole
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.AuthApiService
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.request.LoginRequestDto
+import com.senai.abcgjl_smartcuisine_mobile.feature.auth.data.remote.response.CadastroRequest
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.model.AuthSession
 import com.senai.abcgjl_smartcuisine_mobile.feature.auth.domain.repository.AuthRepository
 import javax.inject.Inject
@@ -58,6 +59,10 @@ class AuthRepositoryImpl @Inject constructor(
                 )
             )
         }
+    }
+
+    override suspend fun cadastrar(request: CadastroRequest) {
+        TODO("Not yet implemented")
     }
 }
 

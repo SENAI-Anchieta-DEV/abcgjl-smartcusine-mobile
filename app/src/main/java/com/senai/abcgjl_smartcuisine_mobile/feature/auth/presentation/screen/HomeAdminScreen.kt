@@ -33,7 +33,7 @@ fun HomeAdminScreen(
             paddingValues = paddingValues,
             stats = stats,
             sensores = sensores,
-            sessionUser = sessionUser, // ← adicionar
+            sessionUser = sessionUser,
             onAddProductClick = { println("Clicou em Adicionar Produto") },
             onReportsClick = { println("Clicou em Relatórios") },
             onLogout = { sessionViewModel.logout() }

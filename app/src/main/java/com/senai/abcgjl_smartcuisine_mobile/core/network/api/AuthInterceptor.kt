@@ -15,7 +15,7 @@ class AuthInterceptor @Inject constructor(
         val isPublicRoute = path.contains("/login") ||
                 path.contains("/register") ||
                 path.contains("/signup") ||
-                path.contains("usuarios/cadastro")
+                path.contains("/usuarios")
 
         if (isPublicRoute) {
             return chain.proceed(originalRequest)

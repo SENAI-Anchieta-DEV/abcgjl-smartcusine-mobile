@@ -34,7 +34,7 @@ fun AppNavHost(
 
     fun authenticatedRouteForCurrentUser(): String {
         return when (sessionUser.role) {
-            UserRole.ADMINISTRADOR -> AppDestinations.AdmHome.route
+            UserRole.ADMIN -> AppDestinations.AdmHome.route
             UserRole.GERENTE -> AppDestinations.AdmHome.route
             UserRole.COZINHEIRO -> AppDestinations.AdmHome.route
             null                   -> AppDestinations.GuestHome.route
