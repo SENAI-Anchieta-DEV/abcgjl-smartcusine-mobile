@@ -6,8 +6,10 @@ import com.senai.abcgjl_smartcuisine_mobile.core.datastore.ThemePreferenceStore
 import com.senai.abcgjl_smartcuisine_mobile.core.model.SessionUser
 import com.senai.abcgjl_smartcuisine_mobile.core.model.ThemeMode
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,6 +23,9 @@ class SessionViewModel @Inject constructor(
     val sessionState: StateFlow<SessionState> = sessionManager.sessionState
     val sessionUser: StateFlow<SessionUser> = sessionManager.sessionUser
 
+    private val _navigateToLogin = MutableStateFlow(false)
+    val navigateToLogin: StateFlow<Boolean> = _navigateToLogin.asStateFlow()
+
     val themeMode: StateFlow<ThemeMode> = themePreferenceStore.themeMode
         .stateIn(
             scope = viewModelScope,
@@ -30,6 +35,11 @@ class SessionViewModel @Inject constructor(
 
     fun logout() {
         sessionManager.logout()
+        _navigateToLogin.value = true
+    }
+
+    fun consumeNavigateToLogin() {
+        _navigateToLogin.value = false
     }
 
     fun toggleTheme() {

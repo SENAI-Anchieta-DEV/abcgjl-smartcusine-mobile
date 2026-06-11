@@ -4,6 +4,7 @@ import SignupScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,13 +29,15 @@ fun AppNavHost(
 ) {
     val sessionState = sessionViewModel.sessionState.collectAsStateWithLifecycle().value
     val sessionUser = sessionViewModel.sessionUser.collectAsStateWithLifecycle().value
+    val navigateToLogin by sessionViewModel.navigateToLogin.collectAsStateWithLifecycle()
+
 
     fun authenticatedRouteForCurrentUser(): String {
         return when (sessionUser.role) {
             UserRole.ADMINISTRADOR -> AppDestinations.AdmHome.route
             UserRole.GERENTE -> AppDestinations.AdmHome.route
             UserRole.COZINHEIRO -> AppDestinations.AdmHome.route
-            null -> AppDestinations.Login.route
+            null                   -> AppDestinations.GuestHome.route
         }
     }
 
@@ -64,6 +67,18 @@ fun AppNavHost(
         }
     }
 
+    LaunchedEffect(navigateToLogin) {
+        if (navigateToLogin) {
+            sessionViewModel.consumeNavigateToLogin()
+            navController.navigate(AppDestinations.Login.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = AppDestinations.Login.route
@@ -86,10 +101,17 @@ fun AppNavHost(
                         },
                         onNavigateToEsqueciSenha = {
                             navController.navigate(AppDestinations.EsqueciSenha.route)
+                        },
+                        onNavigateAsGuest = {
+                            navController.navigate(AppDestinations.GuestHome.route)
                         }
                     )
                 }
             }
+        }
+
+        composable(AppDestinations.GuestHome.route) {
+            HomeAdminScreen(navController = navController, sessionViewModel = sessionViewModel)
         }
 
         composable(AppDestinations.Signup.route) {

@@ -15,17 +15,12 @@ fun LoginScreen(
     onNavigateToSignup: () -> Unit,
     onNavigateToHome: () -> Unit,
     onNavigateToEsqueciSenha: () -> Unit,
+    onNavigateAsGuest: () -> Unit = {},
     viewModel: LoginViewModel = hiltViewModel()
+
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lembrar by viewModel.lembrar.collectAsStateWithLifecycle()
-
-    LaunchedEffect(uiState.isAuthenticated) {
-        if (uiState.isAuthenticated) {
-            onNavigateToHome()
-            viewModel.consumeAuthentication()
-        }
-    }
 
     LoginContent(
         uiState = uiState,
@@ -34,7 +29,7 @@ fun LoginScreen(
         onLoginClick = viewModel::login,
         onSignupClick = onNavigateToSignup,
         onEsqueciSenhaClick = onNavigateToEsqueciSenha,
-        onEntrarSemCadastroClick = onNavigateToHome,
+        onEntrarSemCadastroClick = onNavigateAsGuest,
         lembrar = lembrar,
         onLembrarChange = viewModel::onLembrarChange,
         modifier = Modifier.padding(innerPadding)
